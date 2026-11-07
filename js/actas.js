@@ -274,8 +274,15 @@ window.verActa = function(index) {
     const actas = obtenerActas().sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
     const acta = actas[index];
     const comite = MODELO.getComite();
+    const config = MODELO.getConfig();
     const empresa = comite.empresa || [];
     const trabajadores = comite.trabajadores || [];
+
+    const nombreEmpresa = config.empresaNombre || '[Denominación Social]';
+    const cifEmpresa = config.empresaCif || '[NIF]';
+    const direccionEmpresa = config.empresaDireccion || '';
+    const ciudadEmpresa = config.empresaCiudad || '';
+    const cpEmpresa = config.empresaCp || '';
 
     const tipoLabel = { negociadora: 'Comisión Negociadora', seguimiento: 'Comisión de Seguimiento', extraordinaria: 'Reunión Extraordinaria' }[acta.reunion?.tipo] || 'Reunión';
     const formaLabel = { presencial: 'Presencial', telematica: 'Telemática', mixta: 'Mixta' }[acta.forma] || 'Presencial';
@@ -301,10 +308,17 @@ window.verActa = function(index) {
             </div>
 
             <h1>ACTA DE REUNIÓN - ${tipoLabel.toUpperCase()}</h1>
+
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.5rem; margin-bottom: 2rem; font-size: 0.9rem;">
+                <p style="margin: 0 0 0.25rem 0;"><strong>Empresa:</strong> ${nombreEmpresa}</p>
+                <p style="margin: 0 0 0.25rem 0;"><strong>CIF:</strong> ${cifEmpresa}</p>
+                <p style="margin: 0;"><strong>Domicilio:</strong> ${direccionEmpresa}${direccionEmpresa && (cpEmpresa || ciudadEmpresa) ? ', ' : ''}${cpEmpresa} ${ciudadEmpresa}</p>
+            </div>
             
             <p><strong>Fecha:</strong> ${acta.fecha}</p>
             <p><strong>Lugar:</strong> ${acta.lugar || 'Instalaciones de la empresa'}</p>
             <p><strong>Forma de la reunión:</strong> ${formaLabel}</p>
+            <p><strong>Representación de la Parte Social:</strong> ${{ RLPT: 'RLPT', comite: 'Comité de Empresa', seccion_sindical: 'Sección Sindical', delegados: 'Delegados/as de Personal', otra: 'Otra' }[acta.reunion?.representacion] || 'RLPT'}</p>
 
             <h3>1. Orden del Día</h3>
             <p style="white-space: pre-line;">${acta.orden || 'Sin orden del día'}</p>

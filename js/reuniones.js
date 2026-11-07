@@ -54,6 +54,11 @@ function renderPaginaReuniones(contenedor) {
     html += '<div class="form-group" style="margin:0;"><label>Forma de la reunión</label><select id="reunion_forma"><option value="presencial">Presencial</option><option value="telematica">Telemática</option><option value="mixta">Mixta</option></select></div>';
     html += '</div>';
 
+    // Fila 2b: Representación de la parte social
+    html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">';
+    html += '<div class="form-group" style="margin:0;"><label>Representación de la Parte Social</label><select id="reunion_representacion"><option value="RLPT">RLPT (Representación Legal de las Personas Trabajadoras)</option><option value="comite">Comité de Empresa</option><option value="seccion_sindical">Sección Sindical</option><option value="delegados">Delegados/as de Personal</option><option value="otra">Otra (especificar en Orden del Día)</option></select></div>';
+    html += '</div>';
+
     // Orden del día
     html += '<div class="form-group"><label>Orden del Día</label><textarea id="reunion_orden" rows="3" placeholder="1. Lectura y aprobación del acta anterior&#10;2. ..."></textarea></div>';
 
@@ -113,7 +118,8 @@ function renderPaginaReuniones(contenedor) {
             html += `<div>`;
             html += `<h4 style="margin: 0 0 0.25rem 0; color: #1e293b; font-size: 1rem;">${tipoLabel} · ${r.fecha} ${r.hora ? 'a las ' + r.hora : ''}</h4>`;
             const formaLabel = { presencial: 'Presencial', telematica: 'Telemática', mixta: 'Mixta' }[r.forma] || 'Presencial';
-            html += `<p style="margin: 0 0 0.5rem 0; font-size: 0.85rem; color: #64748b;">📍 ${r.lugar || 'Sin especificar'} · 💻 ${formaLabel} · 👥 ${r.asistentes.length} asistentes</p>`;
+            const repLabel = { RLPT: 'RLPT', comite: 'Comité de Empresa', seccion_sindical: 'Sección Sindical', delegados: 'Delegados/as de Personal', otra: 'Otra' }[r.representacion] || 'RLPT';
+            html += `<p style="margin: 0 0 0.5rem 0; font-size: 0.85rem; color: #64748b;">📍 ${r.lugar || 'Sin especificar'} · 💻 ${formaLabel} · 🏛️ ${repLabel} · 👥 ${r.asistentes.length} asistentes</p>`;
             if (r.orden) html += `<p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #475569; white-space: pre-line;"><strong>Orden del día:</strong><br>${r.orden}</p>`;
             html += `<p style="margin: 0; font-size: 0.8rem; color: #94a3b8;">Asistentes: ${r.asistentes.join(', ')}</p>`;
             if (r.tieneActa) {
@@ -150,6 +156,7 @@ window.guardarReunion = function() {
     const tipo = document.getElementById('reunion_tipo')?.value || 'negociadora';
     const lugar = document.getElementById('reunion_lugar')?.value || '';
     const forma = document.getElementById('reunion_forma')?.value || 'presencial';
+    const representacion = document.getElementById('reunion_representacion')?.value || 'RLPT';
     const orden = document.getElementById('reunion_orden')?.value || '';
 
     const asistentes = [];
@@ -158,7 +165,7 @@ window.guardarReunion = function() {
     });
 
     const reuniones = obtenerReuniones().sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-    reuniones.push({ fecha, hora, tipo, lugar, forma, orden, asistentes });
+    reuniones.push({ fecha, hora, tipo, lugar, forma, representacion, orden, asistentes });
     guardarReuniones(reuniones);
 
     renderPaginaReuniones(document.getElementById('reuniones-contenido'));
@@ -176,6 +183,13 @@ window.generarActa = function(index) {
     const reuniones = obtenerReuniones().sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
     const r = reuniones[index];
     const comite = MODELO.getComite();
+    const config = MODELO.getConfig();
+
+    const nombreEmpresa = config.empresaNombre || '[Denominación Social]';
+    const cifEmpresa = config.empresaCif || '[NIF]';
+    const direccionEmpresa = config.empresaDireccion || '';
+    const ciudadEmpresa = config.empresaCiudad || '';
+    const cpEmpresa = config.empresaCp || '';
 
     // Buscar si ya hay un acta guardada para esta reunión
     const actas = JSON.parse(localStorage.getItem('pi_actas') || '[]');
@@ -230,10 +244,17 @@ window.generarActa = function(index) {
             </div>
 
             <h1>ACTA DE REUNIÓN - ${tipoLabel.toUpperCase()}</h1>
+
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.5rem; margin-bottom: 2rem; font-size: 0.9rem;">
+                <p style="margin: 0 0 0.25rem 0;"><strong>Empresa:</strong> ${nombreEmpresa}</p>
+                <p style="margin: 0 0 0.25rem 0;"><strong>CIF:</strong> ${cifEmpresa}</p>
+                <p style="margin: 0;"><strong>Domicilio:</strong> ${direccionEmpresa}${direccionEmpresa && (cpEmpresa || ciudadEmpresa) ? ', ' : ''}${cpEmpresa} ${ciudadEmpresa}</p>
+            </div>
             
             <p><strong>Fecha:</strong> ${r.fecha}${r.hora ? ' a las ' + r.hora : ''}</p>
             <p><strong>Lugar:</strong> ${r.lugar || 'Instalaciones de la empresa'}</p>
             <p><strong>Forma de la reunión:</strong> ${formaLabel}</p>
+            <p><strong>Representación de la Parte Social:</strong> ${{ RLPT: 'RLPT', comite: 'Comité de Empresa', seccion_sindical: 'Sección Sindical', delegados: 'Delegados/as de Personal', otra: 'Otra' }[r.representacion] || 'RLPT'}</p>
 
             <h3>1. Asistentes</h3>
             <p><strong>Por la Empresa:</strong></p>
