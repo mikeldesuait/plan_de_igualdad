@@ -160,3 +160,78 @@ document.addEventListener('DOMContentLoaded', () => {
         renderizarMiembros('listaTrabajadores', comite.trabajadores);
     }
 });
+
+// --- EXPORTAR E IMPORTAR JSON ---
+
+window.exportarJSON = function() {
+    // Recopilar todas las claves relevantes de localStorage
+    const claves = {
+        configuracion: localStorage.getItem('pi_configuracion'),
+        comite: localStorage.getItem('pi_comite'),
+        fechas: localStorage.getItem('pi_fechas_fases'),
+        usuario: localStorage.getItem('pi_usuario_actual'),
+        reuniones: localStorage.getItem('pi_reuniones'),
+        actas: localStorage.getItem('pi_actas')
+    };
+
+    // Crear el objeto JSON con metadatos
+    const backup = {
+        version: '2.0',
+        fecha: new Date().toISOString(),
+        datos: claves
+    };
+
+    // Convertir a string y descargar
+    const dataStr = JSON.stringify(backup, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    const fechaHoy = new Date().toISOString().split('T')[0];
+    a.download = `Backup_Plan_Igualdad_${fechaHoy}.json`;
+    a.click();
+    
+    URL.revokeObjectURL(url);
+    alert('✅ Copia de seguridad exportada correctamente.');
+};
+
+window.importarJSON = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const backup = JSON.parse(e.target.result);
+
+            // Validar que el archivo tiene la estructura correcta
+            if (!backup.datos) {
+                alert('❌ El archivo no es una copia de seguridad válida.');
+                return;
+            }
+
+            if (!confirm('⚠️ Se van a sobrescribir TODOS los datos actuales con los del archivo. ¿Continuar?')) {
+                return;
+            }
+
+            // Restaurar cada clave en localStorage
+            const claves = backup.datos;
+            if (claves.configuracion) localStorage.setItem('pi_configuracion', claves.configuracion);
+            if (claves.comite) localStorage.setItem('pi_comite', claves.comite);
+            if (claves.fechas) localStorage.setItem('pi_fechas_fases', claves.fechas);
+            if (claves.usuario) localStorage.setItem('pi_usuario_actual', claves.usuario);
+            if (claves.reuniones) localStorage.setItem('pi_reuniones', claves.reuniones);
+            if (claves.actas) localStorage.setItem('pi_actas', claves.actas);
+
+            alert('✅ Copia de seguridad restaurada correctamente. La página se recargará.');
+            location.reload();
+
+        } catch (err) {
+            console.error(err);
+            alert('❌ Error al leer el archivo. Asegúrate de que es un JSON válido.');
+        }
+        event.target.value = '';
+    };
+    reader.readAsText(file);
+};
