@@ -1,5 +1,6 @@
-# Backups locales (no subir a GitHub, son muy grandes)
+# Backups locales (no subir a GitHub)
 backups/
+*.tar.gz
 
 # Archivos de bloqueo de LibreOffice
 .~lock.*
