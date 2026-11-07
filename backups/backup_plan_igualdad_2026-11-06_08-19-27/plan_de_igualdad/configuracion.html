@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Plan de Igualdad</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Plan de <span>Igualdad</span></h1>
+            <div class="header-controls" style="display: flex; align-items: center; gap: 1rem;">
+                <div class="user-selector">
+                    <span style="font-size: 0.85rem; color: #64748b;">👤 Documento actualizado por:</span>
+                    <select id="usuarioActualSelect" style="padding: 0.4rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+                        <option value="">— Selecciona —</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="max-width: 1100px; margin: 0 auto; padding: 0 2rem 1rem 2rem;">
+            <nav id="mainNav" style="display: flex; gap: 0.5rem;">
+                <a href="index.html">Inicio</a>
+                <a href="configuracion.html" class="active">Configuración</a>
+                <a href="cumplimiento.html">Fases</a>
+                <a href="seguridad.html">Seguridad</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-title">
+            <h2>Configuración del Plan</h2>
+            <p>Introduce los datos clave de la empresa y los miembros del comité. Se guardarán automáticamente para generar los documentos.</p>
+        </section>
+
+        <form id="configForm">
+            
+            <!-- 1. DATOS DE LA EMPRESA -->
+            <div class="card-section">
+                <h3>🏢 Datos de la Empresa</h3>
+                <div class="grid-form">
+                    <div class="form-group">
+                        <label>Razón Social *</label>
+                        <input type="text" id="empresaNombre" name="empresaNombre" required placeholder="Ej: Mi Empresa S.L.">
+                    </div>
+                    <div class="form-group">
+                        <label>CIF / NIF *</label>
+                        <input type="text" id="empresaCif" name="empresaCif" required placeholder="Ej: B12345678">
+                    </div>
+                    <div class="form-group">
+                        <label>Sector / CNAE</label>
+                        <input type="text" id="empresaSector" name="empresaSector" placeholder="Ej: Tecnología">
+                    </div>
+                    <div class="form-group">
+                        <label>Nº Empleados/as</label>
+                        <input type="number" id="empresaEmpleados" name="empresaEmpleados" placeholder="Ej: 50">
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" id="empresaDireccion" name="empresaDireccion" placeholder="Calle Mayor 1">
+                    </div>
+                    <div class="form-group">
+                        <label>Ciudad</label>
+                        <input type="text" id="empresaCiudad" name="empresaCiudad" placeholder="Madrid">
+                    </div>
+                    <div class="form-group">
+                        <label>Código Postal</label>
+                        <input type="text" id="empresaCp" name="empresaCp" placeholder="28001">
+                    </div>
+                    <div class="form-group">
+                        <label>Representante Legal</label>
+                        <input type="text" id="empresaRepresentante" name="empresaRepresentante" placeholder="Nombre completo">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. COMISIÓN NEGOCIADORA -->
+            <div class="card-section">
+                <h3>👥 Comisión Negociadora</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Añade a los miembros de cada parte. Al menos debe haber 1 por cada lado.</p>
+                
+                <!-- EMPRESA -->
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color: var(--accent);">Por la Empresa</h4>
+                    <div id="listaEmpresa">
+                        <div class="miembro-row">
+                            <div class="form-group" style="margin: 0;">
+                                <label>Nombre y apellidos</label>
+                                <input type="text" name="empresa1_nombre" placeholder="Ej: Ana García">
+                            </div>
+                            <div class="form-group" style="margin: 0;">
+                                <label>Cargo</label>
+                                <select name="empresa1_rol">
+                            <option value="Titular">Titular</option>
+                            <option value="Suplente">Suplente</option>
+                            <option value="Presidente/a">Presidente/a</option>
+                            <option value="Secretario/a">Secretario/a</option>
+                            <option value="Asesor/a">Asesor/a</option>
+                        </select>
+                            </div>
+                            <button type="button" class="btn-icon" onclick="this.parentElement.remove()" title="Eliminar">✕</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;" onclick="agregarMiembro('listaEmpresa', 'empresa')">➕ Añadir miembro</button>
+                </div>
+
+                <!-- TRABAJADORES -->
+                <div>
+                    <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color: var(--accent);">Por los Trabajadores</h4>
+                    <div id="listaTrabajadores">
+                        <div class="miembro-row">
+                            <div class="form-group" style="margin: 0;">
+                                <label>Nombre y apellidos</label>
+                                <input type="text" name="trabajador1_nombre" placeholder="Ej: Luis Martínez">
+                            </div>
+                            <div class="form-group" style="margin: 0;">
+                                <label>Cargo</label>
+                                <select name="trabajador1_rol">
+                            <option value="Titular">Titular</option>
+                            <option value="Suplente">Suplente</option>
+                            <option value="Presidente/a">Presidente/a</option>
+                            <option value="Secretario/a">Secretario/a</option>
+                            <option value="Asesor/a">Asesor/a</option>
+                        </select>
+                            </div>
+                            <button type="button" class="btn-icon" onclick="this.parentElement.remove()" title="Eliminar">✕</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;" onclick="agregarMiembro('listaTrabajadores', 'trabajador')">➕ Añadir miembro</button>
+                </div>
+            </div>
+
+            <!-- 3. FECHAS -->
+            <div class="card-section">
+                <h3>📅 Fechas del Plan</h3>
+                <div class="grid-form">
+                    <div class="form-group">
+                        <label>Fecha de inicio de la negociación</label>
+                        <input type="date" id="planFechaNegociacion" name="planFechaNegociacion">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de finalización del Plan (estimada)</label>
+                        <input type="date" id="planFechaFin" name="planFechaFin">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTONES -->
+            <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
+                <button type="submit" class="btn btn-primary" style="padding: 1rem 2rem;">💾 Guardar Configuración</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Plan de Igualdad</p>
+    </footer>
+
+    <script src="js/modelo.js"></script>
+    <script src="js/usuario-selector.js"></script>
+    <script src="js/configuracion.js"></script>
+    <script src="js/aviso-legal.js"></script>
+</body>
+</html>

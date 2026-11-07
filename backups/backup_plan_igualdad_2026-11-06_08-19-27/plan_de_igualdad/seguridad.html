@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguridad - Plan de Igualdad</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .card-backup {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card-backup .icon { font-size: 3.5rem; margin-bottom: 1rem; }
+        .card-backup h3 { color: #1e293b; margin-bottom: 1rem; font-size: 1.3rem; }
+        .card-backup p { color: #64748b; font-size: 0.95rem; margin-bottom: 2rem; max-width: 400px; line-height: 1.5; }
+        
+        .btn-backup {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
+            width: 100%;
+            max-width: 300px;
+        }
+        .btn-backup:hover { background: #4f46e5; transform: translateY(-2px); }
+        .btn-backup.restore { background: #10b981; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4); }
+        .btn-backup.restore:hover { background: #059669; }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Plan de <span>Igualdad</span></h1>
+            <div class="header-controls" style="display: flex; align-items: center; gap: 1rem;">
+                <div class="user-selector">
+                    <span style="font-size: 0.85rem; color: #64748b;">👤 Documento actualizado por:</span>
+                    <select id="usuarioActualSelect" style="padding: 0.4rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+                        <option value="">— Selecciona —</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem 1rem 2rem;">
+            <nav id="mainNav" style="display: flex; gap: 0.5rem;">
+                <a href="index.html">Inicio</a>
+                <a href="configuracion.html">Configuración</a>
+                <a href="cumplimiento.html">Fases</a>
+                <a href="seguridad.html" class="active">Seguridad</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-title">
+            <h2>Seguridad y Copias de Seguridad</h2>
+            <p>Toda la información se guarda localmente en este navegador. Para no perderla, descarga una copia de seguridad periódicamente.</p>
+        </section>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
+            
+            <!-- TARJETA EXPORTAR -->
+            <div class="card-backup">
+                <div class="icon">💾</div>
+                <h3>Descargar Copia de Seguridad</h3>
+                <p>Exporta toda la configuración, los datos del comité y el progreso en un archivo <strong>.json</strong>. Guárdalo en un lugar seguro.</p>
+                <button class="btn-backup" onclick="exportarBackup()">⬇️ Descargar Copia (.json)</button>
+            </div>
+
+            <!-- TARJETA IMPORTAR -->
+            <div class="card-backup">
+                <div class="icon">📂</div>
+                <h3>Restaurar Copia de Seguridad</h3>
+                <p>Selecciona un archivo <strong>.json</strong> previamente descargado para restaurar todos los datos de la aplicación. <em>Se sobrescribirán los datos actuales.</em></p>
+                <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="importarBackup(event)">
+                <button class="btn-backup restore" onclick="document.getElementById('fileInput').click()">⬆️ Seleccionar Archivo</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Plan de Igualdad</p>
+    </footer>
+
+    <script src="js/modelo.js"></script>
+    <script src="js/usuario-selector.js"></script>
+    <script src="js/seguridad.js"></script>
+    <script src="js/aviso-legal.js"></script>
+</body>
+</html>

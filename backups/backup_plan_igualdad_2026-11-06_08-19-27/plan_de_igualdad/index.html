@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Igualdad</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Plan de <span>Igualdad</span></h1>
+            
+            <div class="header-controls" style="display: flex; align-items: center; gap: 1rem;">
+                <div class="user-selector">
+                    <span style="font-size: 0.85rem; color: #64748b;">👤 Documento actualizado por:</span>
+                    <select id="usuarioActualSelect" style="padding: 0.4rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+                        <option value="">— Selecciona —</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="max-width: 1100px; margin: 0 auto; padding: 0 2rem 1rem 2rem;">
+            <nav id="mainNav" style="display: flex; gap: 0.5rem;">
+                <a href="index.html" class="active">Inicio</a>
+                <a href="configuracion.html">Configuración</a>
+                <a href="cumplimiento.html">Fases</a>
+                <a href="seguridad.html">Seguridad</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-title">
+            <h2>Panel de Control</h2>
+            <p>Bienvenido al sistema de gestión del Plan de Igualdad.</p>
+        </section>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+            <div class="card">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚙️</div>
+                <h3>Configuración</h3>
+                <p>Introduce los datos de la empresa y los miembros del comité.</p>
+                <a href="configuracion.html" class="btn btn-secondary">Configurar</a>
+            </div>
+
+            <div class="card">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                <h3>Fases del Plan</h3>
+                <p>Sigue el proceso oficial del Ministerio paso a paso.</p>
+                <a href="cumplimiento.html" class="btn btn-primary">Ver Fases</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Plan de Igualdad</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/modelo.js"></script>
+    <script src="js/usuario-selector.js"></script>
+    <script src="js/aviso-legal.js"></script>
+</body>
+</html>

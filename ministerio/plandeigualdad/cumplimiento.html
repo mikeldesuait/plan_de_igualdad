@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Igualdad</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos específicos para las tarjetas horizontales */
+        .fases-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .fase-tarjeta {
+            background: #f0f4f8;
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: -4px -4px 10px rgba(255, 255, 255, 0.8), 4px 4px 10px rgba(163, 177, 198, 0.3);
+        }
+
+        .fase-tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.9), 6px 6px 12px rgba(163, 177, 198, 0.4);
+        }
+
+        .fase-tarjeta.activa {
+            border-color: #6366f1;
+            background: #ffffff;
+            box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.3), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+        }
+
+        .fase-tarjeta .icono {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .fase-tarjeta h3 {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .fase-tarjeta p {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        /* Contenedor del contenido que se despliega */
+        .contenido-fase {
+            display: none;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .contenido-fase.activa {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive: en móviles, las tarjetas se apilan */
+        @media (max-width: 900px) {
+            .fases-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Plan de <span>Igualdad</span></h1>
+            <div class="header-controls" style="display: flex; align-items: center; gap: 1rem;">
+                <div class="user-selector">
+                    <span style="font-size: 0.85rem; color: #64748b;">👤 Documento actualizado por:</span>
+                    <select id="usuarioActualSelect" style="padding: 0.4rem; border-radius: 6px; border: 1px solid #e2e8f0;">
+                        <option value="">— Selecciona —</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem 1rem 2rem;">
+            <nav id="mainNav" style="display: flex; gap: 0.5rem;"></nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- TÍTULO Y DESCRIPCIÓN -->
+        <section class="page-title">
+            <h2>📘 Plan de Igualdad</h2>
+            <p>Proceso de elaboración, aprobación, implantación y evaluación del Plan de Igualdad.</p>
+        </section>
+
+        <!-- AVISO MORADO -->
+        <div id="aviso-plan" style="background: #eef2ff; border-left: 6px solid #4f46e5; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+            <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                <div style="font-size: 1.8rem; line-height: 1;">📘</div>
+                <div>
+                    <h4 style="margin: 0 0 0.5rem 0; color: #3730a3; font-size: 1.05rem; font-weight: 700;">¿Cómo funciona el proceso?</h4>
+                    <p style="margin: 0; color: #312e81; font-size: 0.95rem; line-height: 1.6;">
+                        El proceso se estructura en <strong>5 fases sucesivas y ordenadas</strong>. Es obligatorio para empresas de 50 o más personas trabajadoras, y voluntario para el resto (aunque muy recomendable). Para que sea válido, cada fase debe documentarse y negociarse en el seno de la <strong>Comisión Negociadora</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARJETAS INFORMATIVAS -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+                <h4 style="margin: 0 0 0.75rem 0; color: #4f46e5; font-size: 1rem; font-weight: 700;">📋 ¿Qué es?</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: #475569; line-height: 1.6;">Un conjunto ordenado de medidas adoptadas después de un diagnóstico de situación, tendentes a alcanzar la igualdad de trato y de oportunidades y a eliminar la discriminación por razón de sexo.</p>
+            </div>
+            <div style="padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+                <h4 style="margin: 0 0 0.75rem 0; color: #4f46e5; font-size: 1rem; font-weight: 700;">⚖️ ¿Quién está obligado?</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: #475569; line-height: 1.6;">Todas las empresas de <strong>50 o más personas trabajadoras</strong> (RD-ley 6/2019 y RD 901/2020). También las obligadas por convenio colectivo o por resolución de la autoridad laboral.</p>
+            </div>
+            <div style="padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+                <h4 style="margin: 0 0 0.75rem 0; color: #4f46e5; font-size: 1rem; font-weight: 700;">💡 ¿Qué aporta?</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: #475569; line-height: 1.6;">Integra la igualdad en la gestión de la empresa, mejora el clima laboral y la productividad, y evita sanciones por discriminación.</p>
+            </div>
+        </div>
+
+        <!-- RECURSOS DE APOYO -->
+        <h3 style="color: #1e293b; font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem;">Recursos de Apoyo</h3>
+        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem;">Materiales oficiales del Instituto de las Mujeres para ayudarte en el proceso:</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+            <a href="https://www.igualdadenlaempresa.es/asesoramiento/herramientas-igualdad/pildoras-formativas.htm" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 1rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='#4f46e5';" onmouseout="this.style.borderColor='#e2e8f0';">
+                <div style="font-size: 2rem;">🎥</div>
+                <div>
+                    <div style="font-weight: 700; color: #1e293b; font-size: 0.95rem;">Píldoras Formativas</div>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem;">Vídeos cortos del Instituto de las Mujeres.</div>
+                </div>
+            </a>
+            <a href="ministerio/plandeigualdad/Guia_pdi.pdf" target="_blank" style="display: flex; align-items: center; gap: 1rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.borderColor='#4f46e5';" onmouseout="this.style.borderColor='#e2e8f0';">
+                <div style="font-size: 2rem;">📖</div>
+                <div>
+                    <div style="font-weight: 700; color: #1e293b; font-size: 0.95rem;">Guía Completa (PDF)</div>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem;">Guía para la elaboración de planes de igualdad.</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- TÍTULO DE LAS FASES -->
+        <h3 style="color: #1e293b; font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem;">Las 5 Fases del Plan</h3>
+        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem;">Haz clic en una fase para desplegar su contenido y acceder a los formularios.</p>
+
+        <!-- BARRA DE TARJETAS HORIZONTALES -->
+        <div class="fases-grid">
+            <div class="fase-tarjeta activa" data-target="fase1">
+                <div class="icono">⚙️</div>
+                <h3>Fase 1</h3>
+                <p>Puesta en Marcha</p>
+                <a href="ministerio/plandeigualdad/Fase1_Guia_pdi.pdf" target="_blank" class="link-guia" onclick="event.stopPropagation();">📖 Guía oficial</a>
+            </div>
+            <div class="fase-tarjeta" data-target="fase2">
+                <div class="icono">📊</div>
+                <h3>Fase 2</h3>
+                <p>Diagnóstico</p>
+                <a href="ministerio/plandeigualdad/Fase2_Guia_pdi.pdf" target="_blank" class="link-guia" onclick="event.stopPropagation();">📖 Guía oficial</a>
+            </div>
+            <div class="fase-tarjeta" data-target="fase3">
+                <div class="icono">📝</div>
+                <h3>Fase 3</h3>
+                <p>Diseño y Registro</p>
+                <a href="ministerio/plandeigualdad/Fase3_Guia_pdi.pdf" target="_blank" class="link-guia" onclick="event.stopPropagation();">📖 Guía oficial</a>
+            </div>
+            <div class="fase-tarjeta" data-target="fase4">
+                <div class="icono">🚀</div>
+                <h3>Fase 4</h3>
+                <p>Implantación</p>
+                <a href="ministerio/plandeigualdad/Fase4_Guia_pdi.pdf" target="_blank" class="link-guia" onclick="event.stopPropagation();">📖 Guía oficial</a>
+            </div>
+            <div class="fase-tarjeta" data-target="fase5">
+                <div class="icono">📈</div>
+                <h3>Fase 5</h3>
+                <p>Evaluación</p>
+                <a href="ministerio/plandeigualdad/Fase5_Guia_pdi.pdf" target="_blank" class="link-guia" onclick="event.stopPropagation();">📖 Guía oficial</a>
+            </div>
+        </div>
+
+        <!-- CONTENIDO DE LA FASE 1 -->
+        <div id="fase1" class="contenido-fase activa">
+            <h2 class="fase-title">Fase 1: Puesta en Marcha y Constitución</h2>
+            
+            <!-- PASO 1 -->
+            <div class="paso-bloque">
+                <div class="paso-titulo">1. Apertura de la Negociación</div>
+                <div class="info-grid">
+                    <div class="info-box"><strong>¿Qué hacemos?</strong><p>Comunicar por escrito la intención de negociar el Plan.</p></div>
+                    <div class="info-box"><strong>¿Por qué es importante?</strong><p>Es el acto formal que inicia el proceso y demuestra el compromiso.</p></div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group" style="margin:0;"><label>Fecha de Apertura</label><input type="date" id="f1_fecha_apertura"></div>
+                    <div class="form-group" style="margin:0;"><label>Nº de Centros</label><input type="number" id="f1_centros" value="1"></div>
+                    <div class="form-group" style="margin:0;"><label>Ámbito</label><select id="f1_ambito"><option value="provincial">Provincial</option><option value="autonomico">Autonómico</option><option value="estatal">Estatal</option></select></div>
+                </div>
+                <div class="form-group" style="margin-top:0.5rem;"><label>Convenio Colectivo</label><input type="text" id="f1_convenio" placeholder="Ej: Convenio de Oficinas"></div>
+                <div class="form-group"><label>Observaciones (opcional)</label><textarea id="f1_observaciones_apertura" rows="2"></textarea></div>
+                <button class="btn-generar" onclick="generarAnexoI()">⚡ Generar Documento de Apertura</button>
+            </div>
+
+            <!-- PASO 2 -->
+            <div class="paso-bloque">
+                <div class="paso-titulo">2. Constitución de la Comisión</div>
+                <div class="info-grid">
+                    <div class="info-box"><strong>¿Qué hacemos?</strong><p>Crear la comisión paritaria (empresa y trabajadoras y trabajadores).</p></div>
+                    <div class="info-box"><strong>¿Por qué es importante?</strong><p>Garantiza que el Plan se negocie democráticamente.</p></div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group" style="margin:0;"><label>Fecha Constitución</label><input type="date" id="f1_fecha_constitucion"></div>
+                    <div class="form-group" style="margin:0;"><label>Fecha Reunión (Acta)</label><input type="date" id="f1_fecha_reunion"></div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Modalidad de la Reunión</label>
+                        <select id="f1_modalidad_reunion">
+                            <option value="presencial">Presencial (Sala de Juntas)</option>
+                            <option value="telematica">100% Telemática (Videoconferencia)</option>
+                            <option value="mixta">Mixta (Presencial + Telemática)</option>
+                            <option value="asincrona">Asíncrona (Toma de decisiones por escrito)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin:0;" id="campo_lugar_extra">
+                        <label>Detalle del Lugar</label>
+                        <input type="text" id="f1_lugar_constitucion" placeholder="Ej: Sala de Juntas 2ª planta">
+                    </div>
+
+                    <!-- LISTA DE ASISTENCIA (Se rellena con JS) -->
+                    <div class="form-group" style="grid-column: span 2; margin-top: 1rem;" id="contenedor_asistencia">
+                        <label>Modo de Asistencia de cada Persona integrante</label>
+                        <div id="lista_asistencia_miembros" style="background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 0.8rem;"></div>
+                    </div>
+                    <div class="form-group" style="margin:0;"><label>Sistema de Sustitución</label><select id="f1_sustitucion"><option value="parte_designante">La parte que los designó</option><option value="organo_representacion">El órgano de representación</option><option value="mutuo_acuerdo">Por mutuo acuerdo</option></select></div>
+                    <div class="form-group" style="margin:0;"><label>Calendario Reuniones</label><select id="f1_calendario">
+                            <option value="Semanal">Semanal</option>
+                            <option value="Quincenal">Quincenal</option>
+                            <option value="Mensual">Mensual</option>
+                            <option value="Bimestral">Bimestral</option>
+                            <option value="Trimestral">Trimestral</option>
+                            <option value="A demanda">A demanda</option>
+                        </select></div>
+                </div>
+                <div class="form-group"><label>Observaciones (opcional)</label><textarea id="f1_observaciones_constitucion" rows="2"></textarea></div>
+                <div id="alerta-paridad" style="display: none; margin-top: 1rem; padding: 1rem; background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 4px; font-size: 0.9rem; color: #92400e;"></div>
+                <button class="btn-generar" onclick="generarAnexoII()">⚡ Generar Acta de Constitución</button>
+            </div>
+
+            <!-- PASO 3 -->
+            <div class="paso-bloque">
+                <div class="paso-titulo">3. Comunicación a la Plantilla (Recomendado)</div>
+                <div class="info-grid">
+                    <div class="info-box"><strong>¿Qué hacemos?</strong><p>Informar a todo el personal del inicio del proceso.</p></div>
+                    <div class="info-box"><strong>¿Por qué es importante?</strong><p>Favorece la transparencia y la participación.</p></div>
+                </div>
+                <button class="btn-generar" onclick="generarCircularPlantilla()" style="background: #10b981;">📢 Generar Circular Informativa</button>
+            </div>
+        </div>
+
+        <!-- CONTENIDOS DE LAS OTRAS FASES (Vacíos por ahora) -->
+        <div id="fase2" class="contenido-fase">
+            <h2 class="fase-title">Fase 2: Diagnóstico de Situación</h2>
+            <p class="fase-subtitle">Recopilación y análisis de datos para conocer la situación real de la empresa.</p>
+            <div id="fase2-contenido"></div>
+        </div>
+
+        <div id="fase3"  class="contenido-fase">
+            <h2 class="fase-title">Fase 3: Diseño, Aprobación y Registro</h2>
+            <p>Aquí irá la definición de medidas, el calendario y el Acta de Aprobación (Anexo XI).</p>
+            <div style="padding: 2rem; text-align: center; color: #94a3b8; border: 2px dashed #e2e8f0; border-radius: 12px; margin-top: 1rem;">
+                🚧 En construcción (próximamente)
+            </div>
+        </div>
+
+        <div id="fase4" class="contenido-fase">
+            <h2 class="fase-title">Fase 4: Implantación y Seguimiento</h2>
+            <p>Aquí irá el seguimiento de medidas y las fichas de seguimiento.</p>
+            <div style="padding: 2rem; text-align: center; color: #94a3b8; border: 2px dashed #e2e8f0; border-radius: 12px; margin-top: 1rem;">
+                🚧 En construcción (próximamente)
+            </div>
+        </div>
+
+        <div id="fase5" class="contenido-fase">
+            <h2 class="fase-title">Fase 5: Evaluación del Plan</h2>
+            <p>Aquí irá el informe de evaluación y las propuestas de mejora.</p>
+            <div style="padding: 2rem; text-align: center; color: #94a3b8; border: 2px dashed #e2e8f0; border-radius: 12px; margin-top: 1rem;">
+                🚧 En construcción (próximamente)
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Plan de Igualdad</p>
+    </footer>
+
+    <script src="js/modelo.js"></script>
+    <script src="js/usuario-selector.js"></script>
+    <script src="js/cumplimiento.js"></script>
+    <script src="js/fases-ui.js"></script>
+    <script src="js/fase2/paso1.js"></script>
+    <script src="js/fase2/paso1-pdf.js"></script>
+    <script src="js/fase2/anexo3.js"></script>
+    <script src="js/fase2/anexo3-pdf.js"></script>
+    <script src="js/fase2/anexo4.js"></script>
+    <script src="js/fase2/anexo4-pdf.js"></script>
+    <script src="js/fase2/anexo56.js"></script>
+    <script src="js/fase2/anexo56-pdf.js"></script>
+    <script src="js/fase2/anexo8.js"></script>
+    <script src="js/fase2/anexo8-pdf.js"></script>
+    <script src="js/fase2.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/aviso-legal.js"></script>
+</body>
+</html>
