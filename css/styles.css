@@ -1285,3 +1285,243 @@ body {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* ===== RESPONSIVE PARA MÓVILES Y TABLETS ===== */
+
+/* Tablets (hasta 1024px) */
+@media (max-width: 1024px) {
+    .container { padding: 2rem 1.5rem; }
+    .page-title h2 { font-size: 2rem; }
+    .header-container { flex-wrap: wrap; gap: 1rem; }
+    #headerLinks { margin-left: 1rem; gap: 0.25rem; }
+    .header-link { padding: 0.3rem 0.5rem; font-size: 0.8rem; }
+    .tab { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+}
+
+/* Móviles (hasta 768px) */
+@media (max-width: 768px) {
+    /* Cabecera */
+    .header-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+    }
+    .header-container h1 { font-size: 1.1rem; }
+    #headerLinks {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+    }
+    .header-link { font-size: 0.75rem; padding: 0.3rem 0.5rem; }
+    .user-selector { display: flex; flex-direction: column; align-items: stretch; }
+    .user-selector span { font-size: 0.75rem; }
+    .user-selector select { width: 100%; margin-top: 0.25rem; }
+
+    /* Navegación de pestañas */
+    .tabs-nav {
+        gap: 0.5rem;
+        padding-top: 0.25rem;
+        overflow-x: auto;
+    }
+    .tab-grupo { padding-top: 1rem; }
+    .tab-grupo-etiqueta {
+        font-size: 0.5rem;
+        padding-bottom: 0.2rem;
+    }
+    .tab {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    /* Contenido general */
+    .container { padding: 1.5rem 1rem; }
+    .page-title h2 { font-size: 1.5rem; }
+    .page-title p { font-size: 0.95rem; }
+    .card { padding: 1.25rem; }
+    .card-section { padding: 1.25rem; }
+
+    /* Grids: 1 columna en móvil */
+    .grid-form,
+    .info-grid,
+    .form-inline,
+    [style*="grid-template-columns: repeat(auto-fit"],
+    [style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+    }
+
+    /* Asistentes en actas: apilados */
+    .asistente-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+    }
+    .asistente-row .select-asistencia {
+        width: 100% !important;
+        margin-top: 0.25rem;
+    }
+
+    /* Miembros del comité: apilados */
+    .miembro-row {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+
+    /* Botones: ancho completo en móvil */
+    .btn, .btn-generar, .btn-backup {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 0.8rem 1rem;
+    }
+
+    /* Editor Quill: más pequeño */
+    .ql-toolbar { font-size: 0.8rem; }
+    .ql-container { font-size: 0.85rem; }
+
+    /* Tablas: scroll horizontal */
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+
+    /* Avisos y tarjetas: padding reducido */
+    [style*="padding: 1.5rem"] { padding: 1rem !important; }
+    [style*="padding: 2rem"] { padding: 1rem !important; }
+
+    /* Footer: apilado */
+    .main-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+}
+
+/* Móviles muy pequeños (hasta 480px) */
+@media (max-width: 480px) {
+    .page-title h2 { font-size: 1.3rem; }
+    .tab-grupo-etiqueta { font-size: 0.45rem; letter-spacing: 0; }
+    .tab { padding: 0.35rem 0.5rem; font-size: 0.7rem; }
+    .header-container h1 { font-size: 1rem; }
+    .card h3, .card-section h3 { font-size: 1.05rem; }
+}
+
+
+
+
+
+
+/* ===== NAV EN MÓVIL: SCROLL HORIZONTAL INTUITIVO ===== */
+@media (max-width: 768px) {
+    /* Contenedor del nav: scroll horizontal con degradado a la derecha */
+    .tabs-nav {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        gap: 0.5rem;
+        padding: 0.5rem 2rem 0.5rem 0.5rem; /* Espacio a la derecha para el degradado */
+        width: 100%;
+        max-width: 100%;
+        border-bottom: 1px solid #e2e8f0;
+        scrollbar-width: none; /* Ocultar scroll en Firefox */
+        position: relative;
+        background: #f8fafc;
+    }
+    .tabs-nav::-webkit-scrollbar {
+        display: none; /* Ocultar scroll en Chrome/Safari */
+    }
+    
+    /* Degradado a la derecha para indicar que hay más contenido */
+    .tabs-nav::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 40px;
+        background: linear-gradient(to right, transparent, #f8fafc);
+        pointer-events: none;
+        border-radius: 0 8px 8px 0;
+    }
+    
+    /* Grupos: no se encogen, mantienen su ancho natural */
+    .tab-grupo {
+        flex-shrink: 0;
+        padding-top: 1rem;
+        position: relative;
+    }
+    .tab-grupo-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0;
+        border-bottom: 2px solid transparent;
+    }
+    .tab-grupo-obligatorio .tab-grupo-tabs { border-bottom-color: #4f46e5; }
+    .tab-grupo-recomendado .tab-grupo-tabs { border-bottom-color: #10b981; }
+    
+    /* Etiqueta del grupo: texto pequeño encima */
+    .tab-grupo-etiqueta {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        font-size: 0.5rem;
+        text-align: center;
+        padding-bottom: 0.2rem;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+    .tab-grupo-obligatorio .tab-grupo-etiqueta { color: #4f46e5; }
+    .tab-grupo-recomendado .tab-grupo-etiqueta { color: #10b981; }
+    
+    /* Pestañas: no se encogen, texto en una línea */
+    .tab {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+        border: 1px solid transparent;
+        border-bottom: none;
+        border-radius: 6px 6px 0 0;
+        background: transparent;
+        color: #64748b;
+        position: relative;
+        top: 2px;
+    }
+    .tab:hover {
+        background: #f1f5f9;
+    }
+    .tab.tab-activa {
+        background: #ffffff;
+        color: #4f46e5;
+        font-weight: 600;
+        border-color: #e2e8f0;
+        border-bottom-color: #ffffff;
+    }
+    .tab.tab-recomendado.tab-activa {
+        color: #10b981;
+    }
+    
+    /* Cabecera: enlaces arriba en una fila */
+    #headerLinks {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+    }
+    .header-link {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.5rem;
+    }
+    
+    /* Contenedor del nav sin padding lateral extra */
+    header .main-header > div[style*="max-width: 1200px"],
+    header .main-header > div[style*="max-width: 1100px"] {
+        padding: 0 0 0.5rem 0 !important;
+        max-width: 100% !important;
+    }
+}

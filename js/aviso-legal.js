@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         divIzq.style.gap = '0.75rem';
         divIzq.innerHTML = `
             <span style="color: #64748b; font-size: 0.85rem;">&copy; 2026 Plan de Igualdad</span>
-            <span style="background: #f1f5f9; color: #64748b; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">Versión 1.0</span>
+            <span style="background: #f1f5f9; color: #64748b; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">Versión 2.0</span>
         `;
 
         const divDer = document.createElement('div');
