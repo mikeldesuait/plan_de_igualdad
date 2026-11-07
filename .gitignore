@@ -1,0 +1,13 @@
+# Backups locales (no subir a GitHub, son muy grandes)
+backups/
+
+# Archivos de bloqueo de LibreOffice
+.~lock.*
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
