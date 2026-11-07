@@ -215,7 +215,7 @@ body {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .header-container { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1.5rem; }
     #mainNav { width: 100%; overflow-x: auto; }
     .container { padding: 2rem 1.5rem; }
@@ -296,7 +296,7 @@ body {
 }
 
 /* Ajustes responsive para formularios */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .grid-form {
         grid-template-columns: 1fr;
     }
@@ -477,7 +477,7 @@ select:focus {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .info-grid, .form-inline {
         grid-template-columns: 1fr;
     }
@@ -555,7 +555,7 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .miembro-row {
         grid-template-columns: 1fr;
         gap: 0.5rem;
@@ -1299,7 +1299,7 @@ body {
 }
 
 /* Móviles (hasta 768px) */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     /* Cabecera */
     .header-container {
         flex-direction: column;
@@ -1418,7 +1418,7 @@ body {
 
 
 /* ===== NAV EN MÓVIL: PILLS CON DEGRADADO INDICADOR ===== */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     /* Contenedor del nav: scroll horizontal con degradado a la derecha */
     .tabs-nav {
         display: flex;
@@ -1551,7 +1551,7 @@ body {
     display: none !important; /* Oculto SIEMPRE en escritorio y tablet */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     #indicador-pestanas {
         display: block !important;
         text-align: center;
