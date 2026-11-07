@@ -235,3 +235,164 @@ window.importarJSON = function(event) {
     };
     reader.readAsText(file);
 };
+
+// --- IMPORTAR JSON (versión corregida) ---
+window.importarJSON = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        let backup;
+        try {
+            backup = JSON.parse(e.target.result);
+        } catch (err) {
+            alert('❌ El archivo no es un JSON válido.');
+            event.target.value = '';
+            return;
+        }
+
+        // Validar estructura
+        if (!backup.datos) {
+            alert('❌ El archivo no es una copia de seguridad válida de esta aplicación.');
+            event.target.value = '';
+            return;
+        }
+
+        // Pedir confirmación explícita
+        const confirmar = confirm(
+            '⚠️ ATENCIÓN: Se van a sobrescribir TODOS los datos actuales con los del archivo.\n\n' +
+            '¿Estás seguro de que quieres continuar?'
+        );
+        if (!confirmar) {
+            event.target.value = '';
+            return;
+        }
+
+        // Restaurar datos
+        try {
+            const claves = backup.datos;
+            if (claves.configuracion !== null && claves.configuracion !== undefined) localStorage.setItem('pi_configuracion', claves.configuracion);
+            if (claves.comite !== null && claves.comite !== undefined) localStorage.setItem('pi_comite', claves.comite);
+            if (claves.fechas !== null && claves.fechas !== undefined) localStorage.setItem('pi_fechas_fases', claves.fechas);
+            if (claves.usuario !== null && claves.usuario !== undefined) localStorage.setItem('pi_usuario_actual', claves.usuario);
+            if (claves.reuniones !== null && claves.reuniones !== undefined) localStorage.setItem('pi_reuniones', claves.reuniones);
+            if (claves.actas !== null && claves.actas !== undefined) localStorage.setItem('pi_actas', claves.actas);
+
+            alert('✅ Copia de seguridad restaurada correctamente. La página se recargará.');
+            setTimeout(() => location.reload(), 500);
+        } catch (err) {
+            console.error(err);
+            alert('❌ Error al restaurar los datos: ' + err.message);
+        }
+        event.target.value = '';
+    };
+    reader.readAsText(file);
+};
+
+// --- IMPORTAR JSON ---
+window.importarJSON = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        let backup;
+        try {
+            backup = JSON.parse(e.target.result);
+        } catch (err) {
+            alert('❌ El archivo no es un JSON válido.');
+            event.target.value = '';
+            return;
+        }
+
+        if (!backup.datos) {
+            alert('❌ El archivo no es una copia de seguridad válida de esta aplicación.');
+            event.target.value = '';
+            return;
+        }
+
+        const confirmar = confirm(
+            '⚠️ ATENCIÓN: Se van a sobrescribir TODOS los datos actuales con los del archivo.\n\n' +
+            '¿Estás seguro de que quieres continuar?'
+        );
+        if (!confirmar) {
+            event.target.value = '';
+            return;
+        }
+
+        try {
+            const claves = backup.datos;
+            if (claves.configuracion) localStorage.setItem('pi_configuracion', claves.configuracion);
+            if (claves.comite) localStorage.setItem('pi_comite', claves.comite);
+            if (claves.fechas) localStorage.setItem('pi_fechas_fases', claves.fechas);
+            if (claves.usuario) localStorage.setItem('pi_usuario_actual', claves.usuario);
+            if (claves.reuniones) localStorage.setItem('pi_reuniones', claves.reuniones);
+            if (claves.actas) localStorage.setItem('pi_actas', claves.actas);
+
+            alert('✅ Copia de seguridad restaurada correctamente. La página se recargará.');
+            setTimeout(() => location.reload(), 500);
+        } catch (err) {
+            console.error(err);
+            alert('❌ Error al restaurar los datos: ' + err.message);
+        }
+        event.target.value = '';
+    };
+    reader.readAsText(file);
+};
+
+// Listener para el input de importar (más robusto que el onchange inline)
+document.addEventListener('DOMContentLoaded', () => {
+    const inputImportar = document.getElementById('importarJSON');
+    if (inputImportar) {
+        inputImportar.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                let backup;
+                try {
+                    backup = JSON.parse(e.target.result);
+                } catch (err) {
+                    alert('❌ El archivo no es un JSON válido.');
+                    event.target.value = '';
+                    return;
+                }
+
+                if (!backup.datos) {
+                    alert('❌ El archivo no es una copia de seguridad válida de esta aplicación.');
+                    event.target.value = '';
+                    return;
+                }
+
+                const confirmar = confirm(
+                    '⚠️ ATENCIÓN: Se van a sobrescribir TODOS los datos actuales con los del archivo.\n\n' +
+                    '¿Estás seguro de que quieres continuar?'
+                );
+                if (!confirmar) {
+                    event.target.value = '';
+                    return;
+                }
+
+                try {
+                    const claves = backup.datos;
+                    if (claves.configuracion) localStorage.setItem('pi_configuracion', claves.configuracion);
+                    if (claves.comite) localStorage.setItem('pi_comite', claves.comite);
+                    if (claves.fechas) localStorage.setItem('pi_fechas_fases', claves.fechas);
+                    if (claves.usuario) localStorage.setItem('pi_usuario_actual', claves.usuario);
+                    if (claves.reuniones) localStorage.setItem('pi_reuniones', claves.reuniones);
+                    if (claves.actas) localStorage.setItem('pi_actas', claves.actas);
+
+                    alert('✅ Copia de seguridad restaurada correctamente. La página se recargará.');
+                    setTimeout(() => location.reload(), 500);
+                } catch (err) {
+                    console.error(err);
+                    alert('❌ Error al restaurar los datos: ' + err.message);
+                }
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        });
+    }
+});
