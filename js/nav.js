@@ -23,6 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nav.classList.add('tabs-nav');
 
+    // Crear el indicador de pestañas (solo visible en móvil, controlado por CSS)
+    if (!document.getElementById('indicador-pestanas')) {
+        const indicador = document.createElement('div');
+        indicador.id = 'indicador-pestanas';
+        indicador.style.cssText = 'text-align: center; font-size: 0.7rem; color: #94a3b8; padding: 0.25rem 0 0.5rem 0; font-style: italic;';
+        nav.parentNode.insertBefore(indicador, nav.nextSibling);
+    }
+
     const grupos = [
         {
             tipo: 'obligatorio',
@@ -55,4 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="tab-grupo-tabs">${tabs}</div>
         </div>`;
     }).join('');
+
+    // Actualizar el indicador de pestañas
+    actualizarIndicador();
 });
+
+function actualizarIndicador() {
+    const indicador = document.getElementById('indicador-pestanas');
+    if (!indicador) return;
+
+    const tabs = document.querySelectorAll('.tab');
+    const activa = document.querySelector('.tab.tab-activa');
+    
+    if (tabs.length === 0) {
+        indicador.textContent = '';
+        return;
+    }
+
+    const index = Array.from(tabs).indexOf(activa);
+    if (index >= 0) {
+        indicador.textContent = `Pestaña ${index + 1} de ${tabs.length}`;
+    } else {
+        indicador.textContent = `Total: ${tabs.length} pestañas`;
+    }
+}

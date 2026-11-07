@@ -1411,7 +1411,13 @@ body {
 
 
 
-/* ===== NAV EN MÓVIL: SCROLL HORIZONTAL INTUITIVO ===== */
+
+
+
+
+
+
+/* ===== NAV EN MÓVIL: PILLS CON DEGRADADO INDICADOR ===== */
 @media (max-width: 768px) {
     /* Contenedor del nav: scroll horizontal con degradado a la derecha */
     .tabs-nav {
@@ -1422,88 +1428,101 @@ body {
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
         gap: 0.5rem;
-        padding: 0.5rem 2rem 0.5rem 0.5rem; /* Espacio a la derecha para el degradado */
+        padding: 0.5rem 2.5rem 0.5rem 0.5rem; /* Espacio a la derecha para el degradado */
         width: 100%;
         max-width: 100%;
+        background: #f1f5f9;
         border-bottom: 1px solid #e2e8f0;
-        scrollbar-width: none; /* Ocultar scroll en Firefox */
+        scrollbar-width: thin;
         position: relative;
-        background: #f8fafc;
     }
+    /* Ocultar barra de scroll nativa y poner una fina */
     .tabs-nav::-webkit-scrollbar {
-        display: none; /* Ocultar scroll en Chrome/Safari */
+        height: 4px;
+    }
+    .tabs-nav::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 2px;
     }
     
-    /* Degradado a la derecha para indicar que hay más contenido */
+    /* Degradado en el borde derecho para indicar que hay más */
     .tabs-nav::after {
         content: '';
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
-        width: 40px;
-        background: linear-gradient(to right, transparent, #f8fafc);
+        width: 50px;
+        background: linear-gradient(to right, transparent, #f1f5f9 80%);
         pointer-events: none;
-        border-radius: 0 8px 8px 0;
     }
     
-    /* Grupos: no se encogen, mantienen su ancho natural */
+    /* Ocultar las etiquetas de grupo en móvil */
+    .tab-grupo-etiqueta {
+        display: none;
+    }
+    
+    /* Grupos: sin padding extra, las pestañas se ven todas juntas */
     .tab-grupo {
         flex-shrink: 0;
-        padding-top: 1rem;
-        position: relative;
+        padding-top: 0;
+        display: flex;
     }
     .tab-grupo-tabs {
         display: flex;
         flex-wrap: nowrap;
-        gap: 0;
-        border-bottom: 2px solid transparent;
+        gap: 0.5rem;
+        border-bottom: none;
     }
-    .tab-grupo-obligatorio .tab-grupo-tabs { border-bottom-color: #4f46e5; }
-    .tab-grupo-recomendado .tab-grupo-tabs { border-bottom-color: #10b981; }
-    
-    /* Etiqueta del grupo: texto pequeño encima */
-    .tab-grupo-etiqueta {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        font-size: 0.5rem;
-        text-align: center;
-        padding-bottom: 0.2rem;
-        white-space: nowrap;
-        pointer-events: none;
+    .tab-grupo-obligatorio .tab-grupo-tabs,
+    .tab-grupo-recomendado .tab-grupo-tabs {
+        border-bottom: none;
     }
-    .tab-grupo-obligatorio .tab-grupo-etiqueta { color: #4f46e5; }
-    .tab-grupo-recomendado .tab-grupo-etiqueta { color: #10b981; }
     
-    /* Pestañas: no se encogen, texto en una línea */
+    /* Pestañas tipo "pill" */
     .tab {
         flex-shrink: 0;
         white-space: nowrap;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.8rem;
-        border: 1px solid transparent;
-        border-bottom: none;
-        border-radius: 6px 6px 0 0;
-        background: transparent;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
         color: #64748b;
-        position: relative;
-        top: 2px;
-    }
-    .tab:hover {
-        background: #f1f5f9;
+        position: static;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
     }
     .tab.tab-activa {
-        background: #ffffff;
-        color: #4f46e5;
+        background: #4f46e5;
+        color: #ffffff;
         font-weight: 600;
-        border-color: #e2e8f0;
-        border-bottom-color: #ffffff;
+        border-color: #4f46e5;
+        box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
     }
     .tab.tab-recomendado.tab-activa {
-        color: #10b981;
+        background: #10b981;
+        color: #ffffff;
+        border-color: #10b981;
+        box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
     }
+    
+    /* Punto de color a la izquierda de cada pestaña (indica el grupo) */
+    .tab::before {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+    .tab.tab-obligatorio::before { background: #4f46e5; }
+    .tab.tab-recomendado::before { background: #10b981; }
+    .tab.tab-herramienta::before { background: #94a3b8; }
+    .tab.tab-activa::before { background: #ffffff; }
     
     /* Cabecera: enlaces arriba en una fila */
     #headerLinks {
@@ -1523,5 +1542,25 @@ body {
     header .main-header > div[style*="max-width: 1100px"] {
         padding: 0 0 0.5rem 0 !important;
         max-width: 100% !important;
+    }
+}
+
+
+/* ===== INDICADOR DE PESTAÑAS (solo visible en móvil) ===== */
+#indicador-pestanas {
+    display: none !important; /* Oculto SIEMPRE en escritorio y tablet */
+}
+
+@media (max-width: 768px) {
+    #indicador-pestanas {
+        display: block !important;
+        text-align: center;
+        font-size: 0.7rem;
+        color: #94a3b8;
+        padding: 0.4rem 0;
+        font-style: italic;
+        background: #f1f5f9;
+        border-bottom: 1px solid #e2e8f0;
+        letter-spacing: 0.03em;
     }
 }
