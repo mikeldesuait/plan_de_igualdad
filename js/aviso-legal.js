@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="padding:2rem; font-size:0.9rem; overflow-y:auto; line-height: 1.6; color: #475569;">
                     
                     <h4 style="color: #0f172a; margin-top: 0; margin-bottom: 0.5rem;">1. Información General (LSSI)</h4>
-                    <p>En cumplimiento del artículo 10 de la Ley 34/2002 (LSSI), se informa que esta aplicación web es una herramienta privada, accesible en el dominio <strong>portalrlpt.es</strong>, diseñada para ayudar a las <strong>Representaciones Legales de las Personas Trabajadoras (RLPT)</strong> y a las <strong>empresas</strong> en la gestión del Plan de Igualdad y en la negociación colectiva. La herramienta podrá ampliarse en el futuro con nuevas funcionalidades y áreas de gestión relacionadas con la igualdad y las relaciones laborales. Para cualquier consulta o duda, puede contactar en: <strong>info@portalrlpt.es</strong>. Actualmente, esta herramienta es de acceso libre y gratuito.</p>
+                    <p>En cumplimiento del artículo 10 de la Ley 34/2002 (LSSI), se informa que esta aplicación web es una herramienta privada, accesible en el dominio <strong>portalrlpt.es</strong>, diseñada para ayudar a las <strong>Representaciones Legales de las Personas Trabajadoras (RLPT)</strong> y a las <strong>empresas</strong> en la gestión del Plan de Igualdad y en la negociación colectiva. La herramienta podrá ampliarse en el futuro con nuevas funcionalidades y áreas de gestión relacionadas con la igualdad y las relaciones laborales. Para cualquier consulta o duda, puede contactar en: <strong><span class="email-ofuscado"></span></strong>. Actualmente, esta herramienta es de acceso libre y gratuito.</p>
                     
                     <details style="margin-top: 1rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0;">
                         <summary style="cursor: pointer; font-size: 0.85rem; color: #475569; font-weight: 500; padding: 0.75rem 1rem; list-style: none; display: flex; align-items: center; gap: 0.5rem;">
@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </summary>
                         <div style="padding: 0 1rem 0.75rem 1rem; font-size: 0.85rem; color: #475569; line-height: 1.6; border-top: 1px solid #f1f5f9;">
                             <p style="margin: 0.75rem 0 0.25rem 0;"><strong>Nombre y apellidos:</strong> Miguel Ángel García Rodríguez</p>
-                            <p style="margin: 0 0 0.25rem 0;"><strong>NIF:</strong> [TU DNI AQUÍ]</p>
-                            <p style="margin: 0 0 0.25rem 0;"><strong>Domicilio:</strong> [TU CIUDAD O APARTADO DE CORREOS AQUÍ]</p>
-                            <p style="margin: 0;"><strong>Correo electrónico:</strong> info@portalrlpt.es</p>
+                            <p style="margin: 0 0 0.25rem 0;"><strong>NIF:</strong> 72694650E</p>
+                            <p style="margin: 0 0 0.25rem 0;"><strong>Domicilio:</strong> C/Trepadora 12, Orihuela, 03189</p>
+                            <p style="margin: 0;"><strong>Correo electrónico:</strong> &#105;&#110;&#102;&#111;&#64;&#112;&#111;&#114;&#116;&#97;&#108;&#114;&#108;&#112;&#116;&#46;&#101;&#115;</p>
                         </div>
                     </details>
 
