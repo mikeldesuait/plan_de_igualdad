@@ -264,6 +264,15 @@
             <p class="fase-subtitle">Recopilación y análisis de datos para conocer la situación real de la empresa.</p>
             
             <div id="fase2-contenido"></div>
+        
+
+            <!-- AVISO DE DATOS DE EJEMPLO (texto velado) -->
+            <p style="margin-top: 2rem; font-size: 0.75rem; color: #94a3b8; text-align: center; font-style: italic;">
+                ¿Quieres ver cómo quedaría con datos de ejemplo? 
+                <a href="#" onclick="cargarDatosEjemplo(); return false;" style="color: #6366f1; text-decoration: underline;">Cargar datos de prueba</a>
+                ·
+                <a href="#" onclick="borrarDatosEjemplo(); return false;" style="color: #6366f1; text-decoration: underline;">Borrar datos</a>
+            </p>
         </div>
 
         <div id="fase3"  class="contenido-fase">
@@ -313,5 +322,6 @@
     <script src="js/nav.js"></script>
     <script src="js/aviso-legal.js"></script>
     <script src="js/email-obfuscator.js"></script>
+    <script src="js/seed-fase2.js"></script>
 </body>
 </html>
