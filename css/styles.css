@@ -52,21 +52,13 @@ body {
 }
 
 .main-header h1 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--primary);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    color: #1e293b;
 }
-
 .main-header h1 span {
-    color: var(--accent);
+    color: #a855f7;
 }
 
 /* ===== NAVEGACIÓN ===== */
-#mainNav { display: flex; gap: 0.5rem; }
 #mainNav a {
     color: var(--text-muted);
     text-decoration: none;
@@ -890,52 +882,6 @@ body {
 
 
 /* ===== NAVEGACIÓN ESTILO PESTAÑAS ===== */
-.tabs-nav {
-    display: flex;
-    gap: 0;
-    border-bottom: 2px solid #e2e8f0;
-    padding: 0;
-    overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* IE */
-}
-.tabs-nav::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
-}
-
-.tabs-nav .tab {
-    padding: 0.75rem 1.25rem;
-    color: #64748b;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    white-space: nowrap;
-    border: 1px solid transparent;
-    border-bottom: none;
-    border-radius: 8px 8px 0 0;
-    margin-bottom: -2px;
-    transition: all 0.15s ease;
-    background: transparent;
-    position: relative;
-    top: 2px;
-}
-
-.tabs-nav .tab:hover {
-    background: #f1f5f9;
-    color: #1e293b;
-}
-
-.tabs-nav .tab.tab-activa {
-    background: #ffffff;
-    color: #4f46e5;
-    border-color: #e2e8f0;
-    border-bottom-color: #ffffff;
-    font-weight: 600;
-    z-index: 1;
-}
-
-
-
 /* Colores de etiqueta y llave según tipo */
 .tab-grupo-obligatorio .tab-grupo-etiqueta {
     color: #4f46e5;
@@ -992,9 +938,6 @@ body {
 
 /* Responsive: en pantallas pequeñas, scroll horizontal */
 @media (max-width: 900px) {
-    .tabs-nav {
-        gap: 1rem;
-    }
     .tab-grupo-etiqueta {
     position: absolute;
     top: 0;
@@ -1017,20 +960,6 @@ body {
 
 
 /* ===== NAVEGACIÓN CON GRUPOS Y LLAVES ===== */
-.tabs-nav {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-end;
-    padding: 0.5rem 0 0 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    border-bottom: 2px solid #e2e8f0;
-}
-.tabs-nav::-webkit-scrollbar {
-    display: none;
-}
-
 .tab-grupo {
     display: flex;
     flex-direction: column;
@@ -1099,7 +1028,6 @@ body {
 .tab.tab-recomendado.tab-activa { color: #10b981; }
 
 @media (max-width: 900px) {
-    .tabs-nav { gap: 1rem; }
     .tab-grupo-etiqueta {
     position: absolute;
     top: 0;
@@ -1118,14 +1046,6 @@ body {
 
 
 /* ===== ENLACES DE CABECERA (INICIO Y CONFIGURACIÓN) ===== */
-#headerLinks {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    margin-left: 2rem;
-    flex: 1;
-    justify-content: center;
-}
 .header-link {
     font-size: 0.85rem;
     color: #64748b;
@@ -1147,20 +1067,6 @@ body {
 }
 
 /* ===== NAVEGACIÓN CON GRUPOS Y LLAVES (sin cajas) ===== */
-.tabs-nav {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-end;
-    padding: 0.5rem 0 0 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    border-bottom: 2px solid #e2e8f0;
-}
-.tabs-nav::-webkit-scrollbar {
-    display: none;
-}
-
 .tab-grupo {
     display: flex;
     flex-direction: column;
@@ -1229,7 +1135,6 @@ body {
 .tab.tab-recomendado.tab-activa { color: #10b981; }
 
 @media (max-width: 900px) {
-    .tabs-nav { gap: 1rem; }
     .tab-grupo-etiqueta {
     position: absolute;
     top: 0;
@@ -1293,7 +1198,6 @@ body {
     .container { padding: 2rem 1.5rem; }
     .page-title h2 { font-size: 2rem; }
     .header-container { flex-wrap: wrap; gap: 1rem; }
-    #headerLinks { margin-left: 1rem; gap: 0.25rem; }
     .header-link { padding: 0.3rem 0.5rem; font-size: 0.8rem; }
     .tab { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
 }
@@ -1307,24 +1211,8 @@ body {
         padding: 1rem;
     }
     .header-container h1 { font-size: 1.1rem; }
-    #headerLinks {
-        margin-left: 0;
-        margin-top: 0.5rem;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 0.25rem;
-    }
     .header-link { font-size: 0.75rem; padding: 0.3rem 0.5rem; }
-    .user-selector { display: flex; flex-direction: column; align-items: stretch; }
-    .user-selector span { font-size: 0.75rem; }
-    .user-selector select { width: 100%; margin-top: 0.25rem; }
-
     /* Navegación de pestañas */
-    .tabs-nav {
-        gap: 0.5rem;
-        padding-top: 0.25rem;
-        overflow-x: auto;
-    }
     .tab-grupo { padding-top: 1rem; }
     .tab-grupo-etiqueta {
         font-size: 0.5rem;
@@ -1420,42 +1308,9 @@ body {
 /* ===== NAV EN MÓVIL: PILLS CON DEGRADADO INDICADOR ===== */
 @media (max-width: 1024px) {
     /* Contenedor del nav: scroll horizontal con degradado a la derecha */
-    .tabs-nav {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        gap: 0.5rem;
-        padding: 0.5rem 2.5rem 0.5rem 0.5rem; /* Espacio a la derecha para el degradado */
-        width: 100%;
-        max-width: 100%;
-        background: #f1f5f9;
-        border-bottom: 1px solid #e2e8f0;
-        scrollbar-width: thin;
-        position: relative;
-    }
     /* Ocultar barra de scroll nativa y poner una fina */
-    .tabs-nav::-webkit-scrollbar {
-        height: 4px;
-    }
-    .tabs-nav::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 2px;
-    }
-    
     /* Degradado en el borde derecho para indicar que hay más */
-    .tabs-nav::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 50px;
-        background: linear-gradient(to right, transparent, #f1f5f9 80%);
-        pointer-events: none;
-    }
+    
     
     /* Ocultar las etiquetas de grupo en móvil */
     .tab-grupo-etiqueta {
@@ -1525,13 +1380,6 @@ body {
     .tab.tab-activa::before { background: #ffffff; }
     
     /* Cabecera: enlaces arriba en una fila */
-    #headerLinks {
-        margin-left: 0;
-        margin-top: 0.5rem;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 0.25rem;
-    }
     .header-link {
         font-size: 0.75rem;
         padding: 0.3rem 0.5rem;
@@ -1567,41 +1415,478 @@ body {
 
 /* ===== SELECTOR DE USUARIO: OCULTO POR DEFECTO ===== */
 /* Solo se muestra en páginas que lo necesitan (Actas, Reuniones) */
-.user-selector {
+body.mostrar-selector /* ===== OCULTAR NAV DE PESTAÑAS EN LA PÁGINA DE INICIO ===== */
+body.page-inicio #mainNav {
     display: none;
 }
-body.mostrar-selector .user-selector {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+
+
+/* Enlaces de la cabecera (Inicio, Reuniones, Actas, Configuración) */
+.header-link {
+    color: #6b21a8;
+    font-weight: 500;
+}
+.header-link:hover {
+    background: #e9d5ff;
+    color: #4c1d95;
+}
+.header-link-activa {
+    background: #e9d5ff;
+    color: #4c1d95;
+    font-weight: 700;
 }
 
-/* ===== ENLACES DE CABECERA CENTRADOS ===== */
+/* Selector de usuario */
+/* Botón Guía de Uso */
+#guia-uso-btn {
+    background: #f3e8ff;
+    border: 1px solid #e9d5ff;
+    color: #6b21a8;
+}
+#guia-uso-btn:hover {
+    background: #e9d5ff;
+    border-color: #d8b4fe;
+}
+
+/* Pestañas de navegación (tabs-nav) */
+.tab {
+    color: #7c3aed;
+}
+.tab:hover {
+    background: #f3e8ff;
+    color: #4c1d95;
+}
+.tab.tab-activa {
+    background: #ffffff;
+    color: #6b21a8;
+    border-color: #e9d5ff;
+    border-bottom-color: #ffffff;
+}
+.tab-grupo-obligatorio .tab-grupo-etiqueta {
+    color: #7c3aed;
+}
+.tab-grupo-recomendado .tab-grupo-etiqueta {
+    color: #a855f7;
+}
+
+
+/* ===== CABECERA CON PALETA PASTEL Y ESTRUCTURA LIMPIA ===== */
+.main-header {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    border-bottom: 1px solid #e9d5ff;
+}
+
 .header-container {
-    position: relative;
-}
-#headerLinks {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
     display: flex;
-    gap: 0.25rem;
+    justify-content: space-between;
     align-items: center;
-    margin-left: 0 !important;
-    flex: none !important;
-    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
+.main-header h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #1e293b;
+    margin: 0;
+    white-space: nowrap;
+}
+.main-header h1 span {
+    color: #a855f7;
+}
+
+/* Enlaces de la cabecera */
+.header-link {
+    font-size: 0.85rem;
+    color: #6b21a8;
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.header-link:hover {
+    background: #e9d5ff;
+    color: #4c1d95;
+}
+.header-link-activa {
+    background: #e9d5ff;
+    color: #4c1d95;
+    font-weight: 600;
+}
+
+/* Selector de usuario y botón de guía */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+/* Botón Guía de Uso */
+#guia-uso-btn {
+    padding: 0.4rem 0.8rem;
+    background: #f3e8ff;
+    border: 1px solid #e9d5ff;
+    color: #6b21a8;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+#guia-uso-btn:hover {
+    background: #e9d5ff;
+    border-color: #d8b4fe;
+}
+
+/* Pestañas de navegación */
+.tab {
+    color: #7c3aed;
+}
+.tab:hover {
+    background: #f3e8ff;
+    color: #4c1d95;
+}
+.tab.tab-activa {
+    background: #ffffff;
+    color: #6b21a8;
+    border-color: #e9d5ff;
+    border-bottom-color: #ffffff;
+}
+.tab-grupo-obligatorio .tab-grupo-etiqueta {
+    color: #7c3aed;
+}
+.tab-grupo-recomendado .tab-grupo-etiqueta {
+    color: #a855f7;
+}
+
+/* Responsive: en móvil, apilar todo */
 @media (max-width: 1024px) {
-    #headerLinks {
-        position: static;
-        transform: none;
-        justify-content: flex-start;
-        margin-top: 0.5rem;
+    .header-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    .header-controls {
+        justify-content: space-between;
     }
 }
 
-/* ===== OCULTAR NAV DE PESTAÑAS EN LA PÁGINA DE INICIO ===== */
-body.page-inicio #mainNav {
-    display: none;
+
+/* ===== SELECTOR DE USUARIO (único, limpio) ===== */
+.user-selector {
+    display: none; /* Oculto por defecto */
+}
+body.mostrar-selector .user-selector {
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+}
+.user-selector span {
+    font-size: 0.8rem;
+    color: #7c3aed;
+}
+.user-selector select {
+    padding: 0.4rem;
+    border-radius: 6px;
+    border: 1px solid #e9d5ff;
+    background: #ffffff;
+    color: #4c1d95;
+    font-size: 0.85rem;
+}
+
+/* Forzar ocultación del nav en Inicio (máxima prioridad) */
+html body.page-inicio nav#mainNav.tabs-nav,
+html body.page-inicio #mainNav {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+
+/* ===== NAVEGACIÓN DE PESTAÑAS (ÚNICO BLOQUE LIMPIO) ===== */
+.tabs-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    gap: 1.5rem;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    border-bottom: 2px solid #e2e8f0;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Ocultar scrollbar en Chrome/Safari (pero mantener funcionalidad) */
+.tabs-nav::-webkit-scrollbar {
+    height: 4px;
+}
+.tabs-nav::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 2px;
+}
+
+/* Grupos */
+.tab-grupo {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 1.5rem;
+    flex-shrink: 0;
+}
+
+.tab-grupo-etiqueta {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding-bottom: 0.4rem;
+    pointer-events: none;
+}
+
+.tab-grupo-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid transparent;
+}
+
+/* Colores de grupo */
+.tab-grupo-obligatorio .tab-grupo-tabs { border-bottom-color: #4f46e5; }
+.tab-grupo-recomendado .tab-grupo-tabs { border-bottom-color: #10b981; }
+.tab-grupo-obligatorio .tab-grupo-etiqueta { color: #4f46e5; }
+.tab-grupo-recomendado .tab-grupo-etiqueta { color: #10b981; }
+
+/* Pestañas */
+.tab {
+    padding: 0.6rem 1rem;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.15s ease;
+    position: relative;
+    top: 2px;
+    flex-shrink: 0;
+}
+
+.tab:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.tab.tab-activa {
+    background: #ffffff;
+    font-weight: 600;
+    border-color: #e2e8f0;
+    border-bottom-color: #ffffff;
+    z-index: 1;
+}
+
+.tab.tab-obligatorio.tab-activa { color: #4f46e5; }
+.tab.tab-recomendado.tab-activa { color: #10b981; }
+
+/* Responsive: en móvil, ajustar tamaños */
+@media (max-width: 768px) {
+    .tabs-nav { gap: 1rem; padding: 0.5rem 0.5rem 0 0.5rem; }
+    .tab-grupo-etiqueta { font-size: 0.55rem; }
+    .tab { padding: 0.5rem 0.75rem; font-size: 0.75rem; }
+}
+
+/* ===== OCULTAR NAV DE PESTAÑAS EN PÁGINAS QUE NO SON DEL PLAN ===== */
+body.sin-nav-tabs .tabs-nav {
+    display: none !important;
+}
+
+/* ===== CONTADOR DE PLAZO EN LA CABECERA ===== */
+#contador-plazo {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 0.25rem;
+    white-space: nowrap;
+    padding-right: 0.5rem;
+}
+
+
+
+
+
+/* ===== CABECERA EN MÓVIL: ORDEN Y VISIBILIDAD ===== */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0.75rem;
+        gap: 0.25rem;
+    }
+    
+    /* Título a la izquierda */
+    .header-container h1 {
+        font-size: 0.95rem;
+        margin: 0;
+        order: 1;
+        white-space: nowrap;
+    }
+    
+    /* Controles a la derecha (Guía + Contador) */
+    .header-controls {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 0.4rem !important;
+        order: 2;
+        margin-left: auto;
+        flex-wrap: nowrap;
+    }
+    
+    #guia-uso-btn {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+    
+    #contador-plazo {
+        font-size: 0.6rem;
+        margin-top: 0 !important;
+        padding-right: 0 !important;
+        white-space: nowrap;
+    }
+    
+    /* Enlaces en una fila debajo, con scroll horizontal */
+    .header-link {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.5rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
+
+
+/* ===== ENLACES DE CABECERA (ÚNICO BLOQUE LIMPIO) ===== */
+#headerLinks {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.header-link {
+    font-size: 0.85rem;
+    color: #6b21a8;
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.header-link:hover {
+    background: #e9d5ff;
+    color: #4c1d95;
+}
+
+.header-link-activa {
+    background: #e9d5ff;
+    color: #4c1d95;
+    font-weight: 600;
+}
+
+/* Responsive: en móvil, enlaces en fila con scroll */
+@media (max-width: 768px) {
+    #headerLinks {
+        display: flex !important;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 0.1rem;
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        padding: 0.25rem 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    #headerLinks::-webkit-scrollbar {
+        display: none;
+    }
+    .header-link {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.5rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
+
+/* FORZAR VISIBILIDAD DE ENLACES EN MÓVIL (MÁXIMA PRIORIDAD) */
+@media (max-width: 768px) {
+    #headerLinks {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        order: 3 !important;
+        margin: 0.5rem 0 0 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        justify-content: flex-start !important;
+        flex-wrap: nowrap !important;
+        gap: 0.25rem !important;
+    }
+    #headerLinks .header-link {
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: #6b21a8 !important;
+        font-size: 0.75rem !important;
+        padding: 0.3rem 0.5rem !important;
+        white-space: nowrap !important;
+    }
+}
+
+/* Quitar el borde de foco del enlace del título */
+.header-container h1 a {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+.header-container h1 a:focus {
+    outline: none;
+    box-shadow: none;
+}
+/* Opcional: efecto hover sutil */
+.header-container h1 a:hover {
+    opacity: 0.8;
 }

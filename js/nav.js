@@ -1,4 +1,4 @@
-// nav.js - Generador del menú: enlaces de cabecera + pestañas agrupadas
+// nav.js - Generador centralizado del menú de navegación
 
 document.addEventListener('DOMContentLoaded', () => {
     const nav = document.getElementById('mainNav');
@@ -6,8 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const path = window.location.pathname.split('/').pop() || 'index.html';
 
+    // 1. Enlaces de cabecera (Inicio, Reuniones, Actas, Configuración)
     const headerContainer = document.querySelector('.header-container');
     const h1 = headerContainer ? headerContainer.querySelector('h1') : null;
+    if (h1 && !h1.querySelector('a')) {
+        h1.innerHTML = `<a href="index.html" style="color: inherit; text-decoration: none;">${h1.innerHTML}</a>`;
+    }
     
     if (headerContainer && h1 && !document.getElementById('headerLinks')) {
         const headerLinks = document.createElement('div');
@@ -21,15 +25,62 @@ document.addEventListener('DOMContentLoaded', () => {
         h1.parentNode.insertBefore(headerLinks, h1.nextSibling);
     }
 
-    nav.classList.add('tabs-nav');
-
-    // Crear el indicador de pestañas (solo visible en móvil, controlado por CSS)
-    if (!document.getElementById('indicador-pestanas')) {
-        const indicador = document.createElement('div');
-        indicador.id = 'indicador-pestanas';
-        indicador.style.cssText = 'text-align: center; font-size: 0.7rem; color: #94a3b8; padding: 0.25rem 0 0.5rem 0; font-style: italic;';
-        nav.parentNode.insertBefore(indicador, nav.nextSibling);
+    // 2. Controles de cabecera (selector + guía de uso)
+    const headerControls = document.querySelector('.header-controls');
+    if (headerControls && !document.getElementById('guia-uso-btn')) {
+        // Botón de Guía de Uso
+        const btnGuia = document.createElement('button');
+        btnGuia.id = 'guia-uso-btn';
+        btnGuia.textContent = '📖 Guía de Uso';
+        btnGuia.style.cssText = 'background: #f3e8ff; border: 1px solid #e9d5ff; color: #6b21a8; font-weight: 500; cursor: pointer; font-size: 0.85rem; padding: 0.4rem 0.8rem; border-radius: 6px; transition: all 0.15s ease; white-space: nowrap;';
+        btnGuia.onclick = () => { if (window.abrirManualUso) window.abrirManualUso(); };
+        btnGuia.onmouseover = () => { btnGuia.style.background = '#e9d5ff'; btnGuia.style.borderColor = '#d8b4fe'; };
+        btnGuia.onmouseout = () => { btnGuia.style.background = '#f3e8ff'; btnGuia.style.borderColor = '#e9d5ff'; };
+        headerControls.appendChild(btnGuia);
     }
+
+    // 3. Contador de plazo (debajo del botón de Guía de Uso)
+    if (headerControls && !document.getElementById('contador-plazo')) {
+        const config = MODELO.getConfig();
+        const fechaFin = config.planFechaFin;
+        if (fechaFin) {
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+            const fin = new Date(fechaFin);
+            fin.setHours(0, 0, 0, 0);
+            const diff = Math.ceil((fin - hoy) / (1000 * 60 * 60 * 24));
+            
+            let color, icono, texto;
+            if (diff < 0) {
+                color = '#ef4444';
+                icono = '⚠️';
+                texto = 'Plazo vencido';
+            } else if (diff <= 30) {
+                color = '#f59e0b';
+                icono = '⏳';
+                texto = `Quedan ${diff} días`;
+            } else {
+                color = '#10b981';
+                icono = '✅';
+                texto = `Quedan ${diff} días`;
+            }
+            
+            const contador = document.createElement('div');
+            contador.id = 'contador-plazo';
+            contador.style.cssText = `font-size: 0.65rem; color: ${color}; font-weight: 600; text-align: right; margin-top: 0.1rem; white-space: nowrap;`;
+            contador.textContent = `${icono} ${texto} para finalizar el Plan`;
+            
+            // Añadirlo DENTRO del header-controls (que ahora será columna)
+            headerControls.style.display = 'flex';
+            headerControls.style.flexDirection = 'column';
+            headerControls.style.alignItems = 'flex-end';
+            headerControls.style.gap = '0.1rem';
+            headerControls.appendChild(contador);
+        }
+    }
+
+    // 4. Pestañas de navegación (tabs-nav)
+    nav.classList.add('tabs-nav');
 
     const grupos = [
         {
@@ -40,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { href: 'valoracion.html', texto: 'Valoración de Puestos', id: 'valoracion.html' },
                 { href: 'registro.html', texto: 'Registro Retributivo', id: 'registro.html' },
                 { href: 'auditoria.html', texto: 'Auditoría Retributiva', id: 'auditoria.html' },
-                { href: 'acoso.html', texto: 'Guía de Acoso', id: 'acoso.html' }
+                { href: 'acoso.html', texto: 'Prevención del Acoso', id: 'acoso.html' }
             ]
         },
         {
@@ -63,27 +114,4 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="tab-grupo-tabs">${tabs}</div>
         </div>`;
     }).join('');
-
-    // Actualizar el indicador de pestañas
-    actualizarIndicador();
 });
-
-function actualizarIndicador() {
-    const indicador = document.getElementById('indicador-pestanas');
-    if (!indicador) return;
-
-    const tabs = document.querySelectorAll('.tab');
-    const activa = document.querySelector('.tab.tab-activa');
-    
-    if (tabs.length === 0) {
-        indicador.textContent = '';
-        return;
-    }
-
-    const index = Array.from(tabs).indexOf(activa);
-    if (index >= 0) {
-        indicador.textContent = `Pestaña ${index + 1} de ${tabs.length}`;
-    } else {
-        indicador.textContent = `Total: ${tabs.length} pestañas`;
-    }
-}

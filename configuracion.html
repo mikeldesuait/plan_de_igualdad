@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configuración - Plan de Igualdad</title>
     <link rel="stylesheet" href="css/styles.css">
-<text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
-    <link rel="icon" type="image/png" href="favicon.png">
+        <link rel="icon" type="image/png" href="favicon.png">
 </head>
-<body>
+<body class="sin-nav-tabs">
     <header class="main-header">
         <div class="header-container" style="display: flex; justify-content: space-between; align-items: center;">
             <h1>Plan de <span>Igualdad</span></h1>
@@ -27,16 +26,31 @@
     </header>
 
     <main class="container">
-        <section class="page-title">
-            <h2>Configuración del Plan</h2>
-            <p>Introduce los datos clave de la empresa y las personas que forman parte de la comisión. Se guardarán automáticamente para generar los documentos.</p>
-        </section>
+        
+
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="flex: 1; min-width: 250px;">
+                <h2 style="font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em; color: #0f172a; margin: 0 0 1rem 0; line-height: 1.1;">Configuración del Plan</h2>
+                <p style="color: #64748b; font-size: 1.1rem; line-height: 1.6; margin: 0;">Introduce los datos clave de la empresa y las personas que forman parte de la comisión. Se guardarán automáticamente para generar los documentos.</p>
+            </div>
+            
+        </div>
+        
+
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #94a3b8;">
+            🔒 Tus datos se guardan solo en tu navegador. Ni nosotros ni nadie más tiene acceso a ellos.
+        </p>
 
         <form id="configForm">
             
             <!-- 1. DATOS DE LA EMPRESA -->
-            <div class="card-section">
-                <h3>🏢 Datos de la Empresa</h3>
+            <details class="card-section" style="cursor: pointer;">
+                <summary style="font-size: 1.1rem; font-weight: 700; color: #1e293b; padding: 0.5rem 0; list-style: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #4f46e5; font-size: 0.8rem;">▶</span> 🏢 Datos de la Empresa
+                </summary>
+                <div style="padding-top: 1rem; cursor: default;">
+                    
                 <div class="grid-form">
                     <div class="form-group">
                         <label>Razón Social *</label>
@@ -71,11 +85,15 @@
                         <input type="text" id="empresaRepresentante" name="empresaRepresentante" placeholder="Nombre completo">
                     </div>
                 </div>
-            </div>
-
-            <!-- 2. COMISIÓN NEGOCIADORA -->
-            <div class="card-section">
-                <h3>👥 Comisión Negociadora</h3>
+            
+                </div>
+            </details><!-- 2. COMISIÓN NEGOCIADORA -->
+            <details class="card-section" style="cursor: pointer;">
+                <summary style="font-size: 1.1rem; font-weight: 700; color: #1e293b; padding: 0.5rem 0; list-style: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #4f46e5; font-size: 0.8rem;">▶</span> 👥 Comisión Negociadora
+                </summary>
+                <div style="padding-top: 1rem; cursor: default;">
+                    
                 <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Añade a las personas que forman parte de cada parte. Al menos debe haber 1 por cada lado.</p>
                 
                 <!-- EMPRESA -->
@@ -143,11 +161,15 @@
                     </div>
                     <button type="button" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;" onclick="agregarMiembro('listaTrabajadores', 'trabajador')">➕ Añadir persona integrante</button>
                 </div>
-            </div>
-
-            <!-- 3. FECHAS -->
-            <div class="card-section">
-                <h3>📅 Fechas del Plan</h3>
+            
+                </div>
+            </details><!-- 3. FECHAS -->
+            <details class="card-section" style="cursor: pointer;">
+                <summary style="font-size: 1.1rem; font-weight: 700; color: #1e293b; padding: 0.5rem 0; list-style: none; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="color: #4f46e5; font-size: 0.8rem;">▶</span> 📅 Fechas del Plan
+                </summary>
+                <div style="padding-top: 1rem; cursor: default;">
+                    
                 <div class="grid-form">
                     <div class="form-group">
                         <label>Fecha de inicio de la negociación</label>
@@ -158,26 +180,35 @@
                         <input type="date" id="planFechaFin" name="planFechaFin">
                     </div>
                 </div>
+            
+                </div>
+            </details><!-- BOTONES -->
+            <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
+                <button type="submit" class="btn btn-primary" style="padding: 1rem 2rem;">💾 Guardar Configuración</button>
             </div>
 
-
-            <!-- BOTONES DE IMPORTAR / EXPORTAR -->
-            <div class="card-section" style="margin-top: 1.5rem;">
-                <h3>💾 Copia de Seguridad (JSON)</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Exporta o importa todos los datos de la aplicación (configuración, comité, fechas, reuniones, actas) en un archivo JSON.</p>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <button type="button" onclick="exportarJSON()" style="padding: 0.75rem 1.5rem; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem;">⬇️ Exportar JSON</button>
-                    <label style="padding: 0.75rem 1.5rem; background: #4f46e5; color: white; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem; display: inline-block;">
-                        ⬆️ Importar JSON
+<!-- COPIA DE SEGURIDAD -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.25rem; margin-top: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                <div style="flex: 1; min-width: 250px;">
+                    <h3 style="margin: 0 0 0.5rem 0; color: #1e293b; font-size: 1rem; font-weight: 700;">💾 Copia de Seguridad (JSON)</h3>
+                    <p style="margin: 0; font-size: 0.85rem; color: #475569; line-height: 1.5;">
+                        Descarga o importa todos los datos de la aplicación (configuración, comité, fechas, reuniones y actas) en un único archivo.
+                    </p>
+                    <p style="margin: 0.75rem 0 0 0; font-size: 0.8rem; color: #dc2626; line-height: 1.4; background: #fef2f2; border-left: 3px solid #dc2626; padding: 0.5rem 0.75rem; border-radius: 0 4px 4px 0;">
+                        <strong>⚠️ Importante:</strong> El archivo contiene datos personales y laborales sensibles. Si lo compartes, puede ser importado en otro equipo. La responsabilidad de su custodia y uso recae exclusivamente en la persona que lo comparte.
+                    </p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-shrink: 0; align-items: flex-start;">
+                    <button type="button" onclick="exportarJSON()" style="padding: 0.5rem 1rem; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem;">⬇️ Exportar</button>
+                    <label style="padding: 0.5rem 1rem; background: #4f46e5; color: white; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem;">
+                        ⬆️ Importar
                         <input type="file" id="importarJSON" accept=".json" style="display: none;" onchange="importarJSON(event)">
                     </label>
                 </div>
             </div>
+        </div>
 
-            <!-- BOTONES -->
-            <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
-                <button type="submit" class="btn btn-primary" style="padding: 1rem 2rem;">💾 Guardar Configuración</button>
-            </div>
         </form>
     </main>
 
