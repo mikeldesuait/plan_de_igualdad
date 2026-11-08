@@ -83,6 +83,7 @@
             }
         }
     </style>
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
     <header class="main-header">
@@ -186,6 +187,16 @@
                 <div class="form-inline">
                     <div class="form-group" style="margin:0;"><label>Fecha Constitución</label><input type="date" id="f1_fecha_constitucion"></div>
                     <div class="form-group" style="margin:0;"><label>Fecha Reunión (Acta)</label><input type="date" id="f1_fecha_reunion"></div>
+                    <div class="form-group" style="margin:0;">
+                        <label>Representación de la Parte Social</label>
+                        <select id="f1_representacion_social">
+                            <option value="RLPT">RLPT (Representación Legal de las Personas Trabajadoras)</option>
+                            <option value="comite">Comité de Empresa</option>
+                            <option value="seccion_sindical">Sección Sindical</option>
+                            <option value="delegados">Delegados/as de Personal</option>
+                            <option value="otra">Otra (especificar en observaciones)</option>
+                        </select>
+                    </div>
                     <div class="form-group" style="margin:0;">
                         <label>Modalidad de la Reunión</label>
                         <select id="f1_modalidad_reunion">

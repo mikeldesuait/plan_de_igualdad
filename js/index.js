@@ -57,20 +57,23 @@ function renderPanelControl(contenedor) {
     html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin-bottom: 3rem;">';
 
     const tarjetas = [
+        { paso: '⚙️', icono: '⚙️', titulo: 'Configuración', desc: 'Datos de empresa y comité.', enlace: 'configuracion.html', color: '#64748b', destacada: true },
         { paso: '1', icono: '⚖️', titulo: 'Valoración de Puestos', desc: 'Agrupa los puestos de igual valor.', enlace: 'valoracion.html', color: '#4f46e5' },
         { paso: '2', icono: '💰', titulo: 'Registro Retributivo', desc: 'Promedios y medianas por sexo.', enlace: 'registro.html', color: '#0ea5e9' },
         { paso: '3', icono: '🔍', titulo: 'Auditoría Retributiva', desc: 'Análisis de brecha y actuación.', enlace: 'auditoria.html', color: '#8b5cf6' },
-        { paso: '4', icono: '📋', titulo: 'Plan de Igualdad', desc: 'Diagnóstico y medidas finales.', enlace: 'cumplimiento.html', color: '#10b981' },
-        { paso: '5', icono: '⚙️', titulo: 'Configuración', desc: 'Datos de empresa y comité.', enlace: 'configuracion.html', color: '#64748b' }
+        { paso: '4', icono: '📋', titulo: 'Plan de Igualdad', desc: 'Diagnóstico y medidas finales.', enlace: 'cumplimiento.html', color: '#10b981' }
     ];
 
     tarjetas.forEach(t => {
+        const esDestacada = t.destacada ? ' border: 2px dashed #94a3b8; background: #f8fafc;' : '';
+        const etiqueta = t.destacada ? 'HERRAMIENTA' : `PASO ${t.paso}`;
+        
         html += `<a href="${t.enlace}" style="text-decoration: none; display: block;">`;
-        html += `<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.85rem; height: 100%; transition: all 0.2s; display: flex; flex-direction: column; box-shadow: 0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 16px -4px rgba(0,0,0,0.08)'; this.style.borderColor='${t.color}';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)'; this.style.borderColor='#e2e8f0';">`;
+        html += `<div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 0.85rem; height: 100%; transition: all 0.2s; display: flex; flex-direction: column; box-shadow: 0 2px 4px rgba(0,0,0,0.02);${esDestacada}" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 16px -4px rgba(0,0,0,0.08)'; this.style.borderColor='${t.color}';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)'; this.style.borderColor='#e2e8f0';">`;
         
         html += `<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">`;
         html += `<div style="font-size: 1.5rem; line-height: 1;">${t.icono}</div>`;
-        html += `<div style="background: ${t.color}15; color: ${t.color}; font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.4rem; border-radius: 20px;">PASO ${t.paso}</div>`;
+        html += `<div style="background: ${t.color}15; color: ${t.color}; font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.4rem; border-radius: 20px;">${etiqueta}</div>`;
         html += `</div>`;
         
         html += `<h4 style="margin: 0 0 0.25rem 0; color: #1e293b; font-size: 0.9rem; font-weight: 700;">${t.titulo}</h4>`;

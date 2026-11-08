@@ -1564,3 +1564,44 @@ body {
         letter-spacing: 0.03em;
     }
 }
+
+/* ===== SELECTOR DE USUARIO: OCULTO POR DEFECTO ===== */
+/* Solo se muestra en páginas que lo necesitan (Actas, Reuniones) */
+.user-selector {
+    display: none;
+}
+body.mostrar-selector .user-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ===== ENLACES DE CABECERA CENTRADOS ===== */
+.header-container {
+    position: relative;
+}
+#headerLinks {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    margin-left: 0 !important;
+    flex: none !important;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    #headerLinks {
+        position: static;
+        transform: none;
+        justify-content: flex-start;
+        margin-top: 0.5rem;
+    }
+}
+
+/* ===== OCULTAR NAV DE PESTAÑAS EN LA PÁGINA DE INICIO ===== */
+body.page-inicio #mainNav {
+    display: none;
+}

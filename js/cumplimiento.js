@@ -100,6 +100,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Inicializar asistencias según modalidad guardada
+    // Representación de la Parte Social (guardado automático)
+    const repSocial = document.getElementById('f1_representacion_social');
+    if (repSocial) {
+        repSocial.value = fechasGuardadas.f1_representacion_social || 'RLPT';
+        repSocial.addEventListener('change', (e) => guardarFecha('f1_representacion_social', e.target.value));
+    }
+
+    // Modalidad de la Reunión (guardado automático)
+    const modalidadReunion = document.getElementById('f1_modalidad_reunion');
+    if (modalidadReunion) {
+        modalidadReunion.value = fechasGuardadas.f1_modalidad_reunion || 'presencial';
+        modalidadReunion.addEventListener('change', (e) => guardarFecha('f1_modalidad_reunion', e.target.value));
+    }
+
     inicializarAsistencias(fechasGuardadas.f1_modalidad_reunion || 'presencial');
     // Forzar renderizado de la lista de asistencia
     renderizarListaAsistencia();
@@ -128,6 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
 window.generarAnexoI = function() {
     const config = MODELO.getConfig();
     const centros = document.getElementById('f1_centros').value;
+    const centrosNum = parseInt(centros) || 1;
+    const textoCentros = centrosNum === 1 ? '1 centro de trabajo' : `${centrosNum} centros de trabajo`;
     const ambito = document.getElementById('f1_ambito').value;
     const convenio = document.getElementById('f1_convenio').value || '[Convenio Colectivo]';
     const obsApertura = document.getElementById('f1_observaciones_apertura').value;
@@ -175,7 +191,7 @@ window.generarAnexoI = function() {
 
             <p><strong>1º</strong> Que la persona abajo firmante, ostenta legitimación por parte de <strong>${nombreEmpresa}</strong> para negociar el plan de igualdad y su diagnóstico previo.</p>
 
-            <p><strong>2º</strong> Que el ámbito de negociación del plan de igualdad y su diagnóstico previo es la empresa, que cuenta con <strong>${centros} centro/s de trabajo</strong>, en el ámbito <strong>${ambito}</strong>.</p>
+            <p><strong>2º</strong> Que el ámbito de negociación del plan de igualdad y su diagnóstico previo es la empresa, que cuenta con <strong>${textoCentros}</strong>, en el ámbito <strong>${ambito}</strong>.</p>
 
             <p><strong>3º</strong> Que las materias objeto de negociación de conformidad con el artículo 46.2 de la Ley Orgánica 3/2007, serán al menos:</p>
             <ul>
@@ -224,8 +240,35 @@ window.generarAnexoII = function() {
     const lugarInput = document.getElementById('f1_lugar_constitucion');
     const lugarReunion = (lugarInput && lugarInput.value) ? lugarInput.value : 'Instalaciones de la empresa';
     
+    const modalidadInput = document.getElementById('f1_modalidad_reunion');
+    const modalidad = (modalidadInput && modalidadInput.value) ? modalidadInput.value : 'presencial';
+    
+    const fechaFmt = new Date(fechaReunion).toLocaleDateString('es-ES');
+    let textoLugarFecha = '';
+    if (modalidad === 'presencial') {
+        textoLugarFecha = `En ${lugarReunion}, a ${fechaFmt}`;
+    } else if (modalidad === 'telematica') {
+        textoLugarFecha = `Mediante videoconferencia, a ${fechaFmt}`;
+    } else if (modalidad === 'mixta') {
+        textoLugarFecha = `De forma mixta (presencial en ${lugarReunion} y telemática), a ${fechaFmt}`;
+    } else if (modalidad === 'asincrona') {
+        textoLugarFecha = `De forma asíncrona (por escrito), a ${fechaFmt}`;
+    } else {
+        textoLugarFecha = `En ${lugarReunion}, a ${fechaFmt}`;
+    }
+    
     const obsInput = document.getElementById('f1_observaciones_constitucion');
     const obsConstitucion = (obsInput && obsInput.value) ? obsInput.value : '';
+    
+    const repInput = document.getElementById('f1_representacion_social');
+    const representacionSocial = (repInput && repInput.value) ? repInput.value : 'RLPT';
+    const repSocialTexto = {
+        'RLPT': 'RLPT (Representación Legal de las Personas Trabajadoras)',
+        'comite': 'Comité de Empresa',
+        'seccion_sindical': 'Sección Sindical',
+        'delegados': 'Delegados/as de Personal',
+        'otra': 'Otra (especificada en observaciones)'
+    }[representacionSocial] || 'RLPT';
     
     // Leer Calendario
     const calendarioInput = document.getElementById('f1_calendario');
@@ -255,7 +298,6 @@ window.generarAnexoII = function() {
     }
 
     // --- DATOS GENERALES ---
-    const fechaFmt = new Date(fechaReunion).toLocaleDateString('es-ES');
     const nombreEmpresa = config.empresaNombre || '[Denominación Social]';
     const asistencias = JSON.parse(localStorage.getItem('pi_asistencias_constitucion') || '{}');
     const modalidadActual = document.getElementById('f1_modalidad_reunion')?.value || 'presencial';
@@ -305,12 +347,12 @@ window.generarAnexoII = function() {
 
             <h1>ACTA DE CONSTITUCIÓN DE LA COMISIÓN NEGOCIADORA</h1>
 
-            <p>En <strong>${lugarReunion}</strong>, a <strong>${fechaFmt}</strong>, reunidas las partes abajo firmantes,</p>
+            <p><strong>${textoLugarFecha}</strong>, reunidas las partes abajo firmantes,</p>
 
             <p><strong>Por una parte, la representación de la empresa:</strong></p>
             <ul>${listaEmpresaHTML || '<li>[Nombre y cargo]</li>'}</ul>
 
-            <p><strong>Y por otra, la representación de las trabajadoras y los trabajadores:</strong></p>
+            <p><strong>Y por otra, la representación de la ${repSocialTexto}:</strong></p>
             <ul>${listaTrabajadoresHTML || '<li>[Nombre y cargo]</li>'}</ul>
 
             <p>Con motivo de la constitución de la Comisión Negociadora del Plan de Igualdad de <strong>${nombreEmpresa}</strong>, en cumplimiento de los artículos 45 y 46 de la Ley Orgánica 3/2007.</p>
@@ -344,16 +386,24 @@ window.generarAnexoII = function() {
 
             <p>Y sin más asuntos que tratar, se levanta la sesión, firmando el presente documento en prueba de conformidad.</p>
 
-            <div class="firmas" style="display: flex; justify-content: space-between; margin-top: 4rem; page-break-inside: avoid;">
-                <div class="firma-box" style="width: 45%; border: 1px solid #ccc; padding: 1rem; text-align: center; background: #fafafa;">
-                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">Firmado digitalmente por:</p>
-                    <p style="font-weight: bold; font-size: 1rem; margin: 0;">Por la Empresa</p>
-                    <p style="font-size: 0.8rem; color: #999; margin-top: 0.5rem;">(Pendiente de firma digital)</p>
-                </div>
-                <div class="firma-box" style="width: 45%; border: 1px solid #ccc; padding: 1rem; text-align: center; background: #fafafa;">
-                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">Firmado digitalmente por:</p>
-                    <p style="font-weight: bold; font-size: 1rem; margin: 0;">Por la Representación de los Trabajadores</p>
-                    <p style="font-size: 0.8rem; color: #999; margin-top: 0.5rem;">(Pendiente de firma digital)</p>
+            <div style="margin-top: 3rem; page-break-inside: avoid;">
+                <p style="text-align: center; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    En prueba de conformidad, las partes abajo firmantes aprueban el presente acta.
+                </p>
+                <p style="text-align: center; font-size: 0.9rem; color: #666; margin-bottom: 2rem;">
+                    (Firma pendiente según el procedimiento establecido por la empresa)
+                </p>
+                <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                    <div style="width: 45%; text-align: center;">
+                        <p style="font-weight: bold; margin: 0;">Por la Empresa</p>
+                        <p style="font-size: 0.85rem; color: #666; margin: 0.25rem 0;">${config.empresaRepresentante || '[Representante Legal]'}</p>
+                        <p style="font-size: 0.85rem; color: #333; margin: 0.5rem 0;">${textoLugarFecha}</p>
+                    </div>
+                    <div style="width: 45%; text-align: center;">
+                        <p style="font-weight: bold; margin: 0;">Por la Parte Social</p>
+                        <p style="font-size: 0.85rem; color: #666; margin: 0.25rem 0;">${repSocialTexto}</p>
+                        <p style="font-size: 0.85rem; color: #333; margin: 0.5rem 0;">${textoLugarFecha}</p>
+                    </div>
                 </div>
             </div>
         </body>
